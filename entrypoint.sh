@@ -1,16 +1,38 @@
 #!/bin/sh
 
+
 if [ -z "$DEVICE" ]; then
 	echo >&2 'error: missing required DEVICE environment variable'
 	echo >&2 '  Did you forget to -e DEVICE=... ?'
 	exit 1
 fi
 
+
 if [ -z "$GAIN" ]; then
 	echo >&2 'error: missing required GAIN environment variable'
 	echo >&2 '  Did you forget to -e GAIN=... ?'
 	exit 1
 fi
+
+
+if [ -z "$FREQ" ]; then
+	FREQ="1692140000"
+fi
+
+
+if [ -z "$HIREZ" ]; then
+	rm /tmp/underlay_hirez
+else
+	touch /tmp/underlay_hirez
+fi
+
+
+if [ -z "$PM" ]; then
+	rm /tmp/pristinemask
+else
+	touch /tmp/pristinemask
+fi
+
 
 if [ $DEVICE = "airspy" ] ; then
 cat << EOF > /etc/goestools/goesrecv.conf
@@ -19,7 +41,7 @@ satellite = "GK-2A"
 downlink = "lrit"
 source = "airspy"
 [airspy]
-frequency = 1692140000
+frequency = $FREQ
 gain = $GAIN
 [costas]
 max_deviation = 200e3
@@ -45,7 +67,7 @@ satellite = "GK-2A"
 downlink = "lrit"
 source = "rtlsdr"
 [rtlsdr]
-frequency = 1692140000
+frequency = $FREQ
 sample_rate = 1024000
 gain = $GAIN
 [costas]
@@ -70,7 +92,9 @@ else
 	exit 1
 fi
 
+
 /etc/init.d/cron restart
+
 
 cat << EOF > /etc/caddy/Caddyfile
 0.0.0.0:5005 {
@@ -81,9 +105,47 @@ cat << EOF > /etc/caddy/Caddyfile
 }
 EOF
 
+
+
+
+
+
+rm -rf /tmp/resize_* > /dev/null 2>&1
+
+#rm -rf /usr/local/bin/sanchez/logs > /dev/null 2>&1
+
+rm -rf /tmp/sanchez_logs/* > /dev/null 2>&1
+mkdir -p /tmp/sanchez_logs > /dev/null 2>&1
+
+
+
+
+
+
 mkdir -p /usr/local/bin/xrit-rx/src/received/LRIT/COLOURED
+
+
+
+
+# Path to save "filebrowser.db"
+#cd /usr/local/bin/xrit-rx/src
+cd /opt/xrit-rx_config
+
+
+
+
 /usr/local/bin/caddy --conf=/etc/caddy/Caddyfile &
 /usr/local/bin/filebrowser -r /usr/local/bin/xrit-rx/src/received -p 8888 -a 0.0.0.0 &
+
+
+
+
 /usr/local/bin/goesrecv -i 1 -c /etc/goestools/goesrecv.conf &
 cd /usr/local/bin/xrit-rx/src
 /usr/bin/python3 xrit-rx.py
+
+
+
+
+
+
