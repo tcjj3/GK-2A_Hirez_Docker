@@ -70,7 +70,7 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
-**If you are using down-converter for GK-2A, just set the `FREQ` environment variables to the new frequency (default is 1692140000 Hz).**
+**If you are using down-converter for GK-2A, just set the `FREQ` environment variables to the new frequency (default is `1692140000` Hz).**
 
 
 ## Get Pictures
