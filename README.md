@@ -2,6 +2,7 @@
 Docker for GK-2A decoding, from [**bclswl0827/GK2A-Docker**](https://github.com/bclswl0827/GK2A-Docker), 
 modified by [**tcjj3**](https://github.com/tcjj3), using [**sam210723/xrit-rx**](https://github.com/sam210723/xrit-rx).
 
+
 # Quick Start
 
 Install docker-ce, example given on Debian.
@@ -20,7 +21,7 @@ Run GK-2A_Hirez_Docker.
 ```
 [tcjj3@debian]$ sudo docker volume create xrit-rx
 [tcjj3@debian]$ sudo docker volume create xrit-rx_config
-[tony@localhost]$ docker run -d -i -t \
+[tcjj3@debian]$ sudo docker run -d -i -t \
  --restart always \
  --name=goesrecv \
  --device /dev/bus/usb \
@@ -49,7 +50,7 @@ Run GK-2A_Hirez_Docker.
 ```
 [tcjj3@debian]$ sudo docker volume create xrit-rx
 [tcjj3@debian]$ sudo docker volume create xrit-rx_config
-[tony@localhost]$ docker run -d -i -t \
+[tcjj3@debian]$ sudo docker run -d -i -t \
  --restart always \
  --name=goesrecv \
  --device /dev/bus/usb \
@@ -77,11 +78,17 @@ Run GK-2A_Hirez_Docker.
 ### Local Disk
 
 ```
-[tony@localhost]$ cd /var/lib/docker/volumes/xrit-rx/_data/src/received
+[tcjj3@debian]$ cd /var/lib/docker/volumes/xrit-rx/_data/src/received
 ```
 
 ### Via HTTP
 
+1. Website:
 ```
 http://[Your IP]:5005
+```
+
+2. Filebrowser:
+```
+http://[Your IP]:9999
 ```
