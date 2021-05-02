@@ -90,5 +90,5 @@ http://[Your IP]:5005
 
 2. Filebrowser:
 ```
-http://[Your IP]:9999
+http://[Your IP]:8888
 ```
