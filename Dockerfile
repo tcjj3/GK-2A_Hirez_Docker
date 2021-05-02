@@ -45,7 +45,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && mkdir -p /usr/local/bin/xrit-rx/src/received \
   && pip3 install --no-cache-dir -r /usr/local/bin/xrit-rx/requirements.txt \
   && curl -L http://nmsc.kma.go.kr/resources/enhome/resources/satellites/coms/COMS_Decryption_Sample_Java.zip -o ${DIR_TMP}/COMS_Decryption_Sample_Java.zip \
-  && unzip -j COMS_Decryption_Sample_Java.zip DecryptionClient/test/EncyptionKeyMessage_001F2904C905.bin -d ${DIR_TMP} \
+  && unzip -j ${DIR_TMP}/COMS_Decryption_Sample_Java.zip DecryptionClient/test/EncyptionKeyMessage_001F2904C905.bin -d ${DIR_TMP} \
   && mv ${DIR_TMP}/EncyptionKeyMessage_001F2904C905.bin /usr/local/bin/xrit-rx/src/EncryptionKeyMessage_001F2904C905.bin \
   && python3 /usr/local/bin/xrit-rx/src/tools/keymsg-decrypt.py /usr/local/bin/xrit-rx/src/EncryptionKeyMessage_001F2904C905.bin 001F2904C905 \
   && pip3 install --no-cache-dir imageio \
