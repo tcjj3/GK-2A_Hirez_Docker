@@ -40,7 +40,7 @@ Run GK-2A_Hirez_Docker.
  -p 8888:8888 \
  -v xrit-rx_config:/opt/xrit-rx_config \
  -v xrit-rx:/usr/local/bin/xrit-rx/src/received/LRIT \
- tcjj3/gk-2a-hirez-docker:latest
+ tcjj3/gk-2a_hirez_docker:latest
 ```
 
 **Replace the string `airspy` with `rtlsdr` in case of using RTL-SDR dongle instead of Airspy when deploying docker.**
@@ -67,7 +67,7 @@ Run GK-2A_Hirez_Docker.
  -p 8888:8888 \
  -v xrit-rx_config:/opt/xrit-rx_config \
  -v xrit-rx:/usr/local/bin/xrit-rx/src/received/LRIT \
- tcjj3/gk-2a-hirez-docker:latest
+ tcjj3/gk-2a_hirez_docker:latest
 ```
 
 **If you are using down-converter for GK-2A, just set the `FREQ` environment variables to the new frequency (default is 1692140000 Hz).**
