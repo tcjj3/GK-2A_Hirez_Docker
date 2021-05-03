@@ -1,6 +1,6 @@
 # GK-2A_Hirez_Docker
 Docker for GK-2A decoding, from [**bclswl0827/GK2A-Docker**](https://github.com/bclswl0827/GK2A-Docker), 
-modified by [**tcjj3**](https://github.com/tcjj3), using [**sam210723/xrit-rx**](https://github.com/sam210723/xrit-rx) and [**nullpainter/sanchez**](https://github.com/nullpainter/sanchez).
+modified by [**tcjj3**](https://github.com/tcjj3), using [**sam210723/xrit-rx**](https://github.com/sam210723/xrit-rx), [**sam210723/goestools**](https://github.com/sam210723/goestools) and [**nullpainter/sanchez**](https://github.com/nullpainter/sanchez).
 
 
 # Quick Start
