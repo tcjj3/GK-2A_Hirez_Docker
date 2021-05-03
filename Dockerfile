@@ -94,8 +94,8 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && curl -o ${DIR_TMP}/dotnet-runtime.tar.gz https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.6/dotnet-runtime-3.1.6-linux-${ARCH}.tar.gz \
   && tar -zxf ${DIR_TMP}/dotnet-runtime.tar.gz -C /usr/local/bin/dotnet \
   && chmod +x /opt/* /usr/local/bin/xrit-rx/src/xrit-rx.py \
-  && echo "*/10 * * * * /opt/colour.sh &" > ${DIR_TMP}/crontab \
-  && echo "55 23 * * * /opt/convert.sh &" >> ${DIR_TMP}/crontab \
+  && echo "4,14,24,34,44,54 * * * * /opt/colour.sh &" > ${DIR_TMP}/crontab \
+  && echo "57 23 * * * /opt/convert.sh &" >> ${DIR_TMP}/crontab \
   && crontab ${DIR_TMP}/crontab \
   && rm -rf ${DIR_TMP} \
   && apt-get autoremove --purge curl unzip ca-certificates make build-essential cmake git -y
