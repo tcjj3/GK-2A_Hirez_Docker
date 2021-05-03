@@ -78,7 +78,7 @@ Run GK-2A_Hirez_Docker.
 ### Local Disk
 
 ```
-[tcjj3@debian]$ cd /var/lib/docker/volumes/xrit-rx/_data/src/received
+[tcjj3@debian]$ cd /var/lib/docker/volumes/xrit-rx/_data
 ```
 
 ### Via HTTP
