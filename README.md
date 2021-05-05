@@ -46,7 +46,7 @@ Run GK-2A_Hirez_Docker.
 **Replace the string `airspy` with `rtlsdr` in case of using RTL-SDR dongle instead of Airspy when deploying docker.**
 <br>
 
-**If you want to set `bias_tee` variable, just add a "`BIAS_TEE=true`" environment variable using the "`-e`". Like this:**
+**If you want to set `bias_tee` variable, just add a "`BIAS_TEE=true`" environment variable using the "`-e`" argument. Like this:**
 ```
 [tcjj3@debian]$ sudo docker volume create xrit-rx
 [tcjj3@debian]$ sudo docker volume create xrit-rx_config
