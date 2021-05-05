@@ -34,6 +34,41 @@ else
 fi
 
 
+
+
+if [ $BIAS_TEE = "1" ]; then
+	BIAS_TEE="true"
+fi
+
+if [ $BIAS_TEE = "0" ]; then
+	BIAS_TEE="false"
+fi
+
+if [ $BIAS_TEE = "True" ]; then
+	BIAS_TEE="true"
+fi
+
+if [ $BIAS_TEE = "False" ]; then
+	BIAS_TEE="false"
+fi
+
+if [ $BIAS_TEE = "TRUE" ]; then
+	BIAS_TEE="true"
+fi
+
+if [ $BIAS_TEE = "FALSE" ]; then
+	BIAS_TEE="false"
+fi
+
+if [ ! -z "$BIAS_TEE" ]; then
+	BIAS_TEE_STRING="bias_tee = $BIAS_TEE"
+else
+	BIAS_TEE_STRING=""
+fi
+
+
+
+
 if [ $DEVICE = "airspy" ] ; then
 cat << EOF > /etc/goestools/goesrecv.conf
 [demodulator]
@@ -43,6 +78,7 @@ source = "airspy"
 [airspy]
 frequency = $FREQ
 gain = $GAIN
+$BIAS_TEE_STRING
 [costas]
 max_deviation = 200e3
 [clock_recovery.sample_publisher]
@@ -70,6 +106,7 @@ source = "rtlsdr"
 frequency = $FREQ
 sample_rate = 1024000
 gain = $GAIN
+$BIAS_TEE_STRING
 [costas]
 max_deviation = 200e3
 [clock_recovery.sample_publisher]
