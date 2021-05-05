@@ -44,6 +44,34 @@ Run GK-2A_Hirez_Docker.
 ```
 
 **Replace the string `airspy` with `rtlsdr` in case of using RTL-SDR dongle instead of Airspy when deploying docker.**
+<br>
+
+**If you want to set `bias_tee` variable, just add a "`BIAS_TEE=true`" environment variable using the "`-e`". Like this:**
+```
+[tcjj3@debian]$ sudo docker volume create xrit-rx
+[tcjj3@debian]$ sudo docker volume create xrit-rx_config
+[tcjj3@debian]$ sudo docker run -d -i -t \
+ --restart always \
+ --name=goesrecv \
+ --device /dev/bus/usb \
+ -e DEVICE=airspy \
+ -e GAIN=50 \
+ -e FREQ=1692140000 \
+ -e BIAS_TEE=true \
+ -e HIREZ=underlay_hirez \
+ -e PM=pristinemask \
+ -p 1692:1692 \
+ -p 5001:5001 \
+ -p 5002:5002 \
+ -p 5004:5004 \
+ -p 5005:5005 \
+ -p 6001:6001 \
+ -p 6002:6002 \
+ -p 8888:8888 \
+ -v xrit-rx_config:/opt/xrit-rx_config \
+ -v xrit-rx:/usr/local/bin/xrit-rx/src/received/LRIT \
+ tcjj3/gk-2a_hirez_docker:latest
+```
 
 **If you don't want to use `Underlay-Hirez.jpg` or `PristineMask.jpg` for `Underlay` or `Mask`, just remove the `HIREZ` or the `PM` environment variables, like this:**
 
