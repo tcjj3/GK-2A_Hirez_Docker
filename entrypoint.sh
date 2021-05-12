@@ -9,10 +9,14 @@ fi
 
 
 if [ -z "$GAIN" ]; then
-	echo >&2 'error: missing required GAIN environment variable'
-	echo >&2 '  Did you forget to -e GAIN=... ?'
-	exit 1
+#	echo >&2 'error: missing required GAIN environment variable'
+#	echo >&2 '  Did you forget to -e GAIN=... ?'
+#	exit 1
+	
+	GAIN="50"
 fi
+
+
 
 
 if [ -z "$FREQ" ]; then
@@ -69,6 +73,17 @@ fi
 
 
 
+if [ -z "$DEVICE_INDEX" ]; then
+	DEVICE_INDEX_STRING="device_index = $DEVICE_INDEX"
+else
+	DEVICE_INDEX_STRING=""
+fi
+
+
+
+
+
+
 if [ $DEVICE = "airspy" ] ; then
 cat << EOF > /etc/goestools/goesrecv.conf
 [demodulator]
@@ -107,6 +122,7 @@ frequency = $FREQ
 sample_rate = 1024000
 gain = $GAIN
 $BIAS_TEE_STRING
+$DEVICE_INDEX_STRING
 [costas]
 max_deviation = 200e3
 [clock_recovery.sample_publisher]
