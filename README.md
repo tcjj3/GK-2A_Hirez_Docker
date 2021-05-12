@@ -45,6 +45,8 @@ Run GK-2A_Hirez_Docker.
 
 **Replace the string `airspy` with `rtlsdr` in case of using RTL-SDR dongle instead of Airspy when deploying docker.**
 <br>
+**For RTL-SDR you can add a "`DEVICE_INDEX`" variable to define "`device_index`", for example "` -e DEVICE_INDEX=0 \`" defines "`device_index = 0`".**
+<br>
 
 **If you want to set `bias_tee` variable, just add a "`BIAS_TEE=true`" environment variable using "`-e`" argument. Like this:**
 ```
