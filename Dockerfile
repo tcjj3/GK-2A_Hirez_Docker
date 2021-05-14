@@ -30,12 +30,15 @@ RUN export DIR_TMP="$(mktemp -d)" \
                                                 libairspy-dev \
                                                 librtlsdr-dev \
                                                 graphicsmagick-imagemagick-compat \
+                                                psmisc \
+                                                procps \
   && chmod +x /opt/*.py \
   && chmod +x /opt/*.sh \
   && mkdir -p /etc/goestools /etc/caddy \
   && mkdir -p /opt/xrit-rx_config \
   && git clone --recursive https://github.com/sam210723/goestools ${DIR_TMP}/goestools \
   && cd ${DIR_TMP}/goestools \
+  && sed -Ei "s#std::swap\(tmp, stats_\);#std::swap(tmp, stats_);\n      if (avg(tmp.gain) == 0 \&\& avg(tmp.frequency) == 0 \&\& avg(tmp.omega) == 0 \&\& avg(tmp.viterbiErrors) == 0 \&\& sum(tmp.reedSolomonErrors) == 0 \&\& tmp.totalOK == 0 \&\& tmp.totalDropped == 0) {\n        std::cout << \"Receive hardware error, exiting\!\\\\n\" << std::endl;\n        exit(1);\n      }#gi" src/goesrecv/monitor.cc || echo "continue..." \
   && mkdir -p  ${DIR_TMP}/goestools/build \
   && cd ${DIR_TMP}/goestools/build \
   && cmake ../ -DCMAKE_INSTALL_PREFIX=/usr/local \
