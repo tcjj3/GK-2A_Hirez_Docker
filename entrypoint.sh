@@ -73,7 +73,7 @@ fi
 
 
 
-if [ -z "$DEVICE_INDEX" ]; then
+if [ ! -z "$DEVICE_INDEX" ]; then
 	DEVICE_INDEX_STRING="device_index = $DEVICE_INDEX"
 else
 	DEVICE_INDEX_STRING=""
