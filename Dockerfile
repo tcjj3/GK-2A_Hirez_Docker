@@ -8,7 +8,7 @@ ENV DOTNET_ROOT=/usr/local/bin/dotnet \
 ADD gif.py /opt/gif.py
 ADD colour.sh /opt/colour.sh
 ADD convert.sh /opt/convert.sh
-ADD goesrecv_monitor_to_terminate_python3.sh /opt/goesrecv_monitor_to_terminate_python3.sh
+ADD goestools_monitor_to_terminate_python3.sh /opt/goestools_monitor_to_terminate_python3.sh
 ADD entrypoint.sh /opt/entrypoint.sh
 
 RUN export DIR_TMP="$(mktemp -d)" \
