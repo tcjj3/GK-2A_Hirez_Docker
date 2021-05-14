@@ -16,7 +16,7 @@ goesrecv_ps="$(ps -Af | grep goesrecv | grep -v grep)"
 if [ -z "$goesrecv_ps" ]; then
 killall python3 > /dev/null 2>&1
 killall -9 python3 > /dev/null 2>&1
-if
+fi
 
 
 sleep 1
