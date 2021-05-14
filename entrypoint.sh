@@ -193,7 +193,14 @@ cd /opt/xrit-rx_config
 
 
 
+
+
 /usr/local/bin/goesrecv -i 1 -c /etc/goestools/goesrecv.conf &
+
+/opt/goesrecv_monitor_to_terminate_python3.sh &
+
+
+
 cd /usr/local/bin/xrit-rx/src
 /usr/bin/python3 xrit-rx.py
 
