@@ -52,6 +52,17 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && unzip -j ${DIR_TMP}/COMS_Decryption_Sample_Cpp.zip EncryptionKeyMessage_001F2904C905.bin -d ${DIR_TMP} \
   && mv ${DIR_TMP}/EncryptionKeyMessage_001F2904C905.bin /usr/local/bin/xrit-rx/src/EncryptionKeyMessage_001F2904C905.bin \
   && python3 /usr/local/bin/xrit-rx/src/tools/keymsg-decrypt.py /usr/local/bin/xrit-rx/src/EncryptionKeyMessage_001F2904C905.bin 001F2904C905 \
+  && cp /usr/local/bin/xrit-rx/src/xrit-rx.py /usr/local/bin/xrit-rx/src/xrit-rx.bak.py \
+  && cp /usr/local/bin/xrit-rx/src/demuxer.py /usr/local/bin/xrit-rx/src/demuxer.bak.py \
+  && cp /usr/local/bin/xrit-rx/src/ccsds.py /usr/local/bin/xrit-rx/src/ccsds.bak.py \
+  && tmp=`grep "except OSError:" /usr/local/bin/xrit-rx/src/xrit-rx.py` || echo "continue..." \
+  && [ -z "$tmp" ] && sed -Ei "s#except ConnectionResetError:#except OSError:\n                print(Fore.WHITE + Back.RED + Style.BRIGHT + \"CONNECTION DOES NOT EXIST\")\n                safe_stop()\n            except ConnectionResetError:#gi" /usr/local/bin/xrit-rx/src/xrit-rx.py || echo "continue..." \
+  && tmp=`grep "except Exception as e:" /usr/local/bin/xrit-rx/src/xrit-rx.py | awk 'END{print NR}'` || echo "continue..." \
+  && [ $((tmp)) -lt 2 ] && sed -i ':a;N;$!ba; s#\(.*\)safe_stop()\(.*\)#\1safe_stop()\nexcept Exception as e:\n    print(e)\n    safe_stop()\2#gi' /usr/local/bin/xrit-rx/src/xrit-rx.py || echo "continue..." \
+  && tmp=`grep "self.demuxer.lastImage = self.cProduct.last" /usr/local/bin/xrit-rx/src/demuxer.py | awk 'END{print NR}'` || echo "continue..." \
+  && [ $((tmp)) -lt 2 ] && sed -i ':a;N;$!ba; s#\(.*\)self.cProduct = None\(.*\)#\1self.demuxer.lastImage = self.cProduct.last\n                self.cProduct = None\2#gi' /usr/local/bin/xrit-rx/src/demuxer.py || echo "continue..." \
+  && tmp=`grep "except ValueError:" /usr/local/bin/xrit-rx/src/ccsds.py` || echo "continue..." \
+  && [ -z "$tmp" ] && (sed -Ei "s/self.PLAINTEXT = self.headerField \+ decData/#self.PLAINTEXT = self.headerField + decData/gi" /usr/local/bin/xrit-rx/src/ccsds.py && tmp=`grep "import colorama" /usr/local/bin/xrit-rx/src/ccsds.py` || echo "continue..." && ([ -z "$tmp" ] && sed -Ei "s#import os#import os\n\nimport colorama\nfrom colorama import Fore, Back, Style#gi" /usr/local/bin/xrit-rx/src/ccsds.py && sed -Ei "s#decData = decoder.decrypt\(self.dataField\)#try:\n            decData = decoder.decrypt(self.dataField)\n            self.PLAINTEXT = self.headerField + decData\n        except ValueError:\n            print(\"    \" + Fore.WHITE + Back.RED + Style.BRIGHT + \"DES ECB DECRYPT ERROR:   ValueError\")\n        else:\n            decData = None#gi" /usr/local/bin/xrit-rx/src/ccsds.py) || sed -Ei "s#decData = decoder.decrypt\(self.dataField\)#try:\n            decData = decoder.decrypt(self.dataField)\n            self.PLAINTEXT = self.headerField + decData\n        except ValueError:\n            print(\"    \" + \"DES ECB DECRYPT ERROR:   ValueError\")\n        else:\n            decData = None#gi" /usr/local/bin/xrit-rx/src/ccsds.py) || echo "continue..."
   && pip3 install --no-cache-dir imageio \
   && if [ "$(dpkg --print-architecture)" = "armhf" ]; then \
         ARCH="arm7"; \
