@@ -75,6 +75,37 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
+**If you want to customize the times of generate animation pictures, just add a `CONVERT_TIMES` environment variable in it. The times are UTC times, included hours and minutes. Each time connnect with "`,`", like "`2200,0800`".**
+<br>
+**For example:**
+```
+[tcjj3@debian]$ sudo docker volume create xrit-rx
+[tcjj3@debian]$ sudo docker volume create xrit-rx_config
+[tcjj3@debian]$ sudo docker run -d -i -t \
+ --restart always \
+ --name=goesrecv \
+ --device /dev/bus/usb \
+ -e DEVICE=airspy \
+ -e GAIN=50 \
+ -e FREQ=1692140000 \
+ -e BIAS_TEE=true \
+ -e HIREZ=underlay_hirez \
+ -e PM=pristinemask \
+ -e CONVERT_TIMES=2200,0800 \
+ -p 1692:1692 \
+ -p 5001:5001 \
+ -p 5002:5002 \
+ -p 5004:5004 \
+ -p 5005:5005 \
+ -p 6001:6001 \
+ -p 6002:6002 \
+ -p 8888:8888 \
+ -v xrit-rx_config:/opt/xrit-rx_config \
+ -v xrit-rx:/usr/local/bin/xrit-rx/src/received/LRIT \
+ tcjj3/gk-2a_hirez_docker:latest
+```
+
+
 **If you don't want to use `Underlay-Hirez.jpg` or `PristineMask.jpg` for `Underlay` or `Mask`, just remove the `HIREZ` or the `PM` environment variables, like this:**
 
 ```
@@ -100,7 +131,7 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
-**If you are using down-converter for GK-2A, just set the `FREQ` environment variables to the new frequency (default is `1692140000` Hz).**
+**If you are using down-converter for GK-2A, just set the `FREQ` environment variable to the new frequency (default is `1692140000` Hz).**
 
 
 ## Get Pictures
