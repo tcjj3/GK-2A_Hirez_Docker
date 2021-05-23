@@ -1,6 +1,22 @@
 #!/bin/sh
 
 
+
+
+
+
+stringLength() {
+len=`echo "$1" | awk '{printf("%d", length($0))}'`
+echo "$len"
+}
+
+
+
+
+
+
+
+
 if [ -z "$DEVICE" ]; then
 	echo >&2 'error: missing required DEVICE environment variable'
 	echo >&2 '  Did you forget to -e DEVICE=... ?'
@@ -146,7 +162,58 @@ else
 fi
 
 
+
+
+
+
+
+
+
+if [ ! -z "$CONVERT_TIMES" ]; then
+rm -rf /tmp/crontab
+touch /tmp/crontab
+echo "4,14,24,34,44,54 * * * * /opt/colour.sh &" > /tmp/crontab
+rm -rf /tmp/crontab_
+touch /tmp/crontab_
+echo "$CONVERT_TIMES" | sed "s/,/\n/gi" | while read LINE; do
+if [ ! -z "$LINE" ]; then
+len=`stringLength "$LINE"`
+index=`expr $len - 2`
+Hours="${LINE:0:$index}"
+Minutes="${LINE:$index:2}"
+
+[ -z "$Hours" ] && Hours="23"
+[ -z "$Minutes" ] && Minutes="57"
+
+if [ "$Minutes" -eq "00" ] || [ "$Minutes" -eq "0" ]; then
+Hours=`expr $Hours - 1`
+len_Hours=`stringLength "$Hours"`
+[ "$len_Hours" -lt 2 ] && Hours="0$Hours"
+Minutes="57"
+else
+Minutes="${Minutes:0:1}7"
+fi
+len_Minutes=`stringLength "$Minutes"`
+[ "$len_Minutes" -lt 2 ] && Minutes="0$Minutes"
+
+echo "$Minutes $Hours * * * /opt/convert.sh &" >> /tmp/crontab_
+fi
+done
+cat /tmp/crontab_ | sort -u >> /tmp/crontab
+crontab /tmp/crontab
+rm -rf /tmp/crontab
+rm -rf /tmp/crontab_
+fi
+
+
 /etc/init.d/cron restart
+
+
+
+
+
+
+
 
 
 cat << EOF > /etc/caddy/Caddyfile
