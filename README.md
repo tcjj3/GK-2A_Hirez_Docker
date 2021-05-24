@@ -75,7 +75,7 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
-**If you want to customize the `times` of generate animation pictures, just add a "`CONVERT_TIMES`" environment variable in it. The `times` are UTC times, included `hours` and `minutes`. Each `time` connnected with "`,`", like "`2200,0000`".**
+**If you want to customize the `times` of generate animation pictures, just add a "`CONVERT_TIMES`" environment variable in it (default `CONVERT_TIMES` value is "`0000`"). The `times` are UTC times, included `hours` and `minutes`. Each `time` connnected with "`,`", like "`2200,0000`".**
 <br>
 **For example:**
 ```
