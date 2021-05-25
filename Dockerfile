@@ -87,7 +87,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && tar -zxf ${DIR_TMP}/dotnet-sdk.tar.gz -C ${DIR_TMP}/dotnet-sdk \
   && rm -rf ${DIR_TMP}/dotnet-sdk.tar.gz \
   && curl -L https://github.com/nullpainter/sanchez/archive/v0.2.3.tar.gz -o ${DIR_TMP}/sanchez-0.2.3.tar.gz \
-  && tar zxvf ${DIR_TMP}/sanchez-0.2.3.tar.gz -C ${DIR_TMP} \
+  && tar zxf ${DIR_TMP}/sanchez-0.2.3.tar.gz -C ${DIR_TMP} \
   && cd ${DIR_TMP}/sanchez-0.2.3/Sanchez \
   && cp Sanchez.csproj Sanchez.csproj.bak \
   && sed -Ei "s#<None Update=\"Resources\\\\GK-2A\\\\Underlay.jpg\">#<None Update=\"Resources\\\\GK-2A\\\\PristineMask.jpg\"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory><ExcludeFromSingleFile>true</ExcludeFromSingleFile></None> <None Update=\"Resources\\\\GK-2A\\\\Underlay-Hirez.jpg\"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory><ExcludeFromSingleFile>true</ExcludeFromSingleFile></None> <None Update=\"Resources\\\\GK-2A\\\\Underlay.jpg\">#g" Sanchez.csproj \
