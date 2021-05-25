@@ -9,6 +9,7 @@ ADD gif.py /opt/gif.py
 ADD colour.sh /opt/colour.sh
 ADD convert.sh /opt/convert.sh
 ADD goestools_monitor_to_terminate_python3.sh /opt/goestools_monitor_to_terminate_python3.sh
+ADD set_convert_times.sh /opt/set_convert_times.sh
 ADD entrypoint.sh /opt/entrypoint.sh
 
 RUN export DIR_TMP="$(mktemp -d)" \

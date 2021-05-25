@@ -170,70 +170,11 @@ fi
 
 
 if [ ! -z "$CONVERT_TIMES" ]; then
-rm -rf /tmp/crontab
-touch /tmp/crontab
-echo "4,14,24,34,44,54 * * * * /opt/colour.sh &" > /tmp/crontab
-rm -rf /tmp/crontab_
-touch /tmp/crontab_
-echo "$CONVERT_TIMES" | sed "s/,/\n/gi" | while read LINE; do
-if [ ! -z "$LINE" ]; then
-len=`stringLength "$LINE"`
-index=`expr $len - 2`
-Hours="${LINE:0:$index}"
-Minutes="${LINE:$index:2}"
-
-[ -z "$Hours" ] && Hours="23"
-[ -z "$Minutes" ] && Minutes="57"
-
-if [ "$Minutes" -gt "59" ]; then
-Hours=`expr $Hours + 1`
-Minutes="00"
-fi
-if [ "$Hours" -gt "23" ]; then
-Hours="00"
-Minutes="00"
-fi
-
-if [ "$Minutes" -eq "00" ] || [ "$Minutes" -eq "0" ]; then
-if [ "$Hours" -gt "00" ] || [ "$Hours" -gt "0" ]; then
-Hours=`expr $Hours - 1`
-else
-Hours="23"
-fi
-len_Hours=`stringLength "$Hours"`
-[ "$len_Hours" -lt 2 ] && Hours="0$Hours"
-Minutes="57"
-else
-Minutes_0=`expr ${Minutes:1:1}`
-Minutes_1=`expr ${Minutes:0:1}`
-if [ "$Minutes_0" -eq "0" ]; then
-if [ "$Minutes_1" -gt "0" ]; then
-Minutes_1=`expr ${Minutes_1} - 1`
-else
-if [ "$Hours" -gt "00" ] || [ "$Hours" -gt "0" ]; then
-Hours=`expr $Hours - 1`
-else
-Hours="23"
-fi
-Minutes_1="5"
-fi
-fi
-Minutes="${Minutes_1}7"
-fi
-len_Minutes=`stringLength "$Minutes"`
-[ "$len_Minutes" -lt 2 ] && Minutes="0$Minutes"
-
-echo "$Minutes $Hours * * * /opt/convert.sh &" >> /tmp/crontab_
-fi
-done
-cat /tmp/crontab_ | sort -u >> /tmp/crontab
-crontab /tmp/crontab
-rm -rf /tmp/crontab
-rm -rf /tmp/crontab_
+/opt/set_convert_times.sh "$CONVERT_TIMES" > /dev/null 2>&1
 fi
 
 
-/etc/init.d/cron restart
+/etc/init.d/cron restart > /dev/null 2>&1
 
 
 
@@ -269,34 +210,34 @@ mkdir -p /tmp/sanchez_logs > /dev/null 2>&1
 
 
 
-mkdir -p /usr/local/bin/xrit-rx/src/received/LRIT/COLOURED
+mkdir -p /usr/local/bin/xrit-rx/src/received/LRIT/COLOURED > /dev/null 2>&1
 
 
 
 
 # Path to save "filebrowser.db"
-#cd /usr/local/bin/xrit-rx/src
-cd /opt/xrit-rx_config
+#cd /usr/local/bin/xrit-rx/src > /dev/null 2>&1
+cd /opt/xrit-rx_config > /dev/null 2>&1
 
 
 
 
-/usr/local/bin/caddy --conf=/etc/caddy/Caddyfile &
-/usr/local/bin/filebrowser -r /usr/local/bin/xrit-rx/src/received -p 8888 -a 0.0.0.0 &
+/usr/local/bin/caddy --conf=/etc/caddy/Caddyfile > /dev/null 2>&1 &
+/usr/local/bin/filebrowser -r /usr/local/bin/xrit-rx/src/received -p 8888 -a 0.0.0.0 > /dev/null 2>&1 &
 
 
 
 
 
 
-/usr/local/bin/goesrecv -i 1 -c /etc/goestools/goesrecv.conf &
+/usr/local/bin/goesrecv -i 1 -c /etc/goestools/goesrecv.conf > /dev/null 2>&1 &
 
-/opt/goestools_monitor_to_terminate_python3.sh &
+/opt/goestools_monitor_to_terminate_python3.sh > /dev/null 2>&1 &
 
 
 
-cd /usr/local/bin/xrit-rx/src
-/usr/bin/python3 xrit-rx.py
+cd /usr/local/bin/xrit-rx/src > /dev/null 2>&1
+/usr/bin/python3 xrit-rx.py > /dev/null 2>&1
 
 
 
