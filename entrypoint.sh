@@ -184,14 +184,284 @@ fi
 
 
 
+
+
+
+mkdir -p /usr/local/bin/xrit-rx/src/received/LRIT/COLOURED > /dev/null 2>&1
+
+
+
+
+
+
 cat << EOF > /etc/caddy/Caddyfile
 0.0.0.0:5005 {
     root /usr/local/bin/xrit-rx/src/received/LRIT
     tls off
     gzip
     browse
+EOF
+
+
+
+
+
+
+if [ $PROXY_DASHBOARD = "1" ]; then
+	PROXY_DASHBOARD="true"
+fi
+
+if [ $PROXY_DASHBOARD = "0" ]; then
+	PROXY_DASHBOARD="false"
+fi
+
+if [ $PROXY_DASHBOARD = "True" ]; then
+	PROXY_DASHBOARD="true"
+fi
+
+if [ $PROXY_DASHBOARD = "False" ]; then
+	PROXY_DASHBOARD="false"
+fi
+
+if [ $PROXY_DASHBOARD = "TRUE" ]; then
+	PROXY_DASHBOARD="true"
+fi
+
+if [ $PROXY_DASHBOARD = "FALSE" ]; then
+	PROXY_DASHBOARD="false"
+fi
+
+if [ $PROXY_DASHBOARD != "false" ] && [ ! -z "$PROXY_DASHBOARD" ]; then
+cat << EOF >> /etc/caddy/Caddyfile
+    
+    
+    proxy /dash 127.0.0.1:1692 {
+        without /dash
+    }
+    proxy /dashboard 127.0.0.1:1692 {
+        without /dashboard
+    }
+    proxy /db 127.0.0.1:1692 {
+        without /db
+    }
+    proxy /d 127.0.0.1:1692 {
+        without /d
+    }
+    proxy /xrit-rx 127.0.0.1:1692 {
+        without /xrit-rx
+    }
+    proxy /lrit-rx 127.0.0.1:1692 {
+        without /lrit-rx
+    }
+    proxy /hrit-rx 127.0.0.1:1692 {
+        without /hrit-rx
+    }
+    proxy /xritrx 127.0.0.1:1692 {
+        without /xritrx
+    }
+    proxy /lritrx 127.0.0.1:1692 {
+        without /lritrx
+    }
+    proxy /hritrx 127.0.0.1:1692 {
+        without /hritrx
+    }
+    proxy /xrit 127.0.0.1:1692 {
+        without /xrit
+    }
+    proxy /lrit 127.0.0.1:1692 {
+        without /lrit
+    }
+    proxy /hrit 127.0.0.1:1692 {
+        without /hrit
+    }
+    proxy /gk-2a 127.0.0.1:1692 {
+        without /gk-2a
+    }
+    proxy /gk2a 127.0.0.1:1692 {
+        without /gk2a
+    }
+    proxy /geo-kompsat-2a 127.0.0.1:1692 {
+        without /geo-kompsat-2a
+    }
+    proxy /geokompsat-2a 127.0.0.1:1692 {
+        without /geokompsat-2a
+    }
+    proxy /geo-kompsat2a 127.0.0.1:1692 {
+        without /geo-kompsat2a
+    }
+    proxy /geokompsat2a 127.0.0.1:1692 {
+        without /geokompsat2a
+    }
+    proxy /favicon.ico 127.0.0.1:1692
+    proxy /css/dash.css 127.0.0.1:1692
+    proxy /js/dash.js 127.0.0.1:1692
+    proxy /js/tools.js 127.0.0.1:1692
+    proxy /api 127.0.0.1:1692
+    proxy /api/current 127.0.0.1:1692
+    proxy /api/latest 127.0.0.1:1692
+    proxy /api/received 127.0.0.1:1692
+EOF
+fi
+
+
+if [ $CREATE_DASHBOARD_LINK = "1" ]; then
+	CREATE_DASHBOARD_LINK="true"
+fi
+
+if [ $CREATE_DASHBOARD_LINK = "0" ]; then
+	CREATE_DASHBOARD_LINK="false"
+fi
+
+if [ $CREATE_DASHBOARD_LINK = "True" ]; then
+	CREATE_DASHBOARD_LINK="true"
+fi
+
+if [ $CREATE_DASHBOARD_LINK = "False" ]; then
+	CREATE_DASHBOARD_LINK="false"
+fi
+
+if [ $CREATE_DASHBOARD_LINK = "TRUE" ]; then
+	CREATE_DASHBOARD_LINK="true"
+fi
+
+if [ $CREATE_DASHBOARD_LINK = "FALSE" ]; then
+	CREATE_DASHBOARD_LINK="false"
+fi
+
+if [ $CREATE_DASHBOARD_LINK != "false" ] && [ ! -z "$CREATE_DASHBOARD_LINK" ]; then
+#touch /usr/local/bin/xrit-rx/src/received/LRIT/dashboard > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > /usr/local/bin/xrit-rx/src/received/LRIT/dashboard
+else
+rm -rf /usr/local/bin/xrit-rx/src/received/LRIT/dashboard > /dev/null 2>&1
+fi
+
+
+
+
+
+
+if [ $PROXY_FILEBROWSER = "1" ]; then
+	PROXY_FILEBROWSER="true"
+fi
+
+if [ $PROXY_FILEBROWSER = "0" ]; then
+	PROXY_FILEBROWSER="false"
+fi
+
+if [ $PROXY_FILEBROWSER = "True" ]; then
+	PROXY_FILEBROWSER="true"
+fi
+
+if [ $PROXY_FILEBROWSER = "False" ]; then
+	PROXY_FILEBROWSER="false"
+fi
+
+if [ $PROXY_FILEBROWSER = "TRUE" ]; then
+	PROXY_FILEBROWSER="true"
+fi
+
+if [ $PROXY_FILEBROWSER = "FALSE" ]; then
+	PROXY_FILEBROWSER="false"
+fi
+
+if [ $PROXY_FILEBROWSER != "false" ] && [ ! -z "$PROXY_FILEBROWSER" ]; then
+cat << EOF >> /etc/caddy/Caddyfile
+    
+    
+    proxy /filebrowser 127.0.0.1:8888 {
+        without /filebrowser
+    }
+    proxy /file 127.0.0.1:8888 {
+        without /file
+    }
+    proxy /fb 127.0.0.1:8888 {
+        without /fb
+    }
+    redir /files/filebrowser /files
+    redir /api/resources/filebrowser /api/resources/
+    redir /files/file /files
+    redir /api/resources/file /api/resources/
+    redir /files/fb /files
+    redir /api/resources/fb /api/resources/
+    proxy /files 127.0.0.1:8888
+    proxy /login 127.0.0.1:8888
+    proxy /api/login 127.0.0.1:8888
+    proxy /api/signup 127.0.0.1:8888
+    proxy /api/renew 127.0.0.1:8888
+    proxy /static/js 127.0.0.1:8888
+    proxy /static/img 127.0.0.1:8888
+    proxy /static/css 127.0.0.1:8888
+    proxy /static/fonts 127.0.0.1:8888
+    proxy /static 127.0.0.1:8888
+    proxy /api/resources 127.0.0.1:8888
+    proxy /settings/profile 127.0.0.1:8888
+    proxy /api/shares 127.0.0.1:8888
+    proxy /settings/users 127.0.0.1:8888
+    proxy /api/users 127.0.0.1:8888
+    proxy /settings/shares 127.0.0.1:8888
+    proxy /settings/global 127.0.0.1:8888
+    proxy /api/settings 127.0.0.1:8888
+    proxy /api/preview/thumb 127.0.0.1:8888
+    proxy /api/preview/big 127.0.0.1:8888
+    proxy /api/raw 127.0.0.1:8888
+    proxy /api/command 127.0.0.1:8888 {
+        websocket
+        header_upstream -Origin
+    }
+    proxy /share 127.0.0.1:8888
+    proxy /api/share 127.0.0.1:8888
+    proxy /api/shares 127.0.0.1:8888
+    proxy /api/public/share 127.0.0.1:8888
+    proxy /api/public/dl 127.0.0.1:8888
+    proxy /api/search 127.0.0.1:8888
+EOF
+fi
+
+
+if [ $CREATE_FILEBROWSER_LINK = "1" ]; then
+	CREATE_FILEBROWSER_LINK="true"
+fi
+
+if [ $CREATE_FILEBROWSER_LINK = "0" ]; then
+	CREATE_FILEBROWSER_LINK="false"
+fi
+
+if [ $CREATE_FILEBROWSER_LINK = "True" ]; then
+	CREATE_FILEBROWSER_LINK="true"
+fi
+
+if [ $CREATE_FILEBROWSER_LINK = "False" ]; then
+	CREATE_FILEBROWSER_LINK="false"
+fi
+
+if [ $CREATE_FILEBROWSER_LINK = "TRUE" ]; then
+	CREATE_FILEBROWSER_LINK="true"
+fi
+
+if [ $CREATE_FILEBROWSER_LINK = "FALSE" ]; then
+	CREATE_FILEBROWSER_LINK="false"
+fi
+
+if [ $CREATE_FILEBROWSER_LINK != "false" ] && [ ! -z "$CREATE_FILEBROWSER_LINK" ]; then
+#touch /usr/local/bin/xrit-rx/src/received/LRIT/files > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > /usr/local/bin/xrit-rx/src/received/LRIT/files
+else
+rm -rf /usr/local/bin/xrit-rx/src/received/LRIT/files > /dev/null 2>&1
+fi
+
+
+
+
+cat << EOF >> /etc/caddy/Caddyfile
+    
+    
+    header / Access-Control-Allow-Origin *
 }
 EOF
+
+
+
+
 
 
 
@@ -206,11 +476,6 @@ rm -rf /tmp/sanchez_logs/* > /dev/null 2>&1
 mkdir -p /tmp/sanchez_logs > /dev/null 2>&1
 
 
-
-
-
-
-mkdir -p /usr/local/bin/xrit-rx/src/received/LRIT/COLOURED > /dev/null 2>&1
 
 
 
