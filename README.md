@@ -166,6 +166,7 @@ Run GK-2A_Hirez_Docker.
 ```
 
 **If you are using down-converter for GK-2A, just set the `FREQ` environment variable to the new frequency (default is `1692140000` Hz).**
+<br>
 
 
 ## Get Pictures
@@ -176,14 +177,36 @@ Run GK-2A_Hirez_Docker.
 [tcjj3@debian]$ cd /var/lib/docker/volumes/xrit-rx/_data
 ```
 
+
+
 ### Via HTTP
+
 
 1. Website:
 ```
 http://[Your IP]:5005
 ```
+(2) If you set `PROXY_DASHBOARD` environment variable to "`true`", you can visit `Dashboard` at here:
+```
+http://[Your IP]:5005/dashboard
+```
+(2) If you set `PROXY_FILEBROWSER` environment variable to "`true`", you can visit `Filebrowser` at here:
+```
+http://[Your IP]:5005/files
+```
+<br>
+
 
 2. Filebrowser:
 ```
 http://[Your IP]:8888
 ```
+<br>
+
+
+3. Dashboard:
+```
+http://[Your IP]:1692
+```
+
+
