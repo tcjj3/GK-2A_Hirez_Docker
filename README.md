@@ -186,7 +186,7 @@ Run GK-2A_Hirez_Docker.
 ```
 http://[Your IP]:5005
 ```
-(2) If you set `PROXY_DASHBOARD` environment variable to "`true`", you can visit `Dashboard` at here:
+(1) If you set `PROXY_DASHBOARD` environment variable to "`true`", you can visit `Dashboard` at here:
 ```
 http://[Your IP]:5005/dashboard
 ```
