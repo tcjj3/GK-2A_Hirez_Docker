@@ -82,7 +82,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && echo "	server_name _;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	location / {" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
-  && echo "		try_files $uri $uri/ =404;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "		try_files \$uri \$uri/ =404;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	}" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "}" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
