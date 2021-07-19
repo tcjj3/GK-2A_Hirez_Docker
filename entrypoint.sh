@@ -16,6 +16,17 @@ echo "$len"
 
 
 
+#Dashboard_StaticFiles_ServerPath="127.0.0.1:1692"
+Dashboard_StaticFiles_ServerPath="127.0.0.1:4041"
+
+
+
+
+
+
+
+
+
 
 if [ -z "$DEVICE" ]; then
 	echo >&2 'error: missing required DEVICE environment variable'
@@ -235,76 +246,78 @@ if [ $PROXY_DASHBOARD != "false" ] && [ ! -z "$PROXY_DASHBOARD" ]; then
 cat << EOF >> /etc/caddy/Caddyfile
     
     
-    proxy /dash 127.0.0.1:1692 {
+    proxy /dash ${Dashboard_StaticFiles_ServerPath} {
         without /dash
     }
-    proxy /dashboard 127.0.0.1:1692 {
+    proxy /dashboard ${Dashboard_StaticFiles_ServerPath} {
         without /dashboard
     }
-    proxy /db 127.0.0.1:1692 {
+    proxy /db ${Dashboard_StaticFiles_ServerPath} {
         without /db
     }
-    proxy /d 127.0.0.1:1692 {
+    proxy /d ${Dashboard_StaticFiles_ServerPath} {
         without /d
     }
-    proxy /xrit-rx 127.0.0.1:1692 {
+    proxy /xrit-rx ${Dashboard_StaticFiles_ServerPath} {
         without /xrit-rx
     }
-    proxy /lrit-rx 127.0.0.1:1692 {
+    proxy /lrit-rx ${Dashboard_StaticFiles_ServerPath} {
         without /lrit-rx
     }
-    proxy /hrit-rx 127.0.0.1:1692 {
+    proxy /hrit-rx ${Dashboard_StaticFiles_ServerPath} {
         without /hrit-rx
     }
-    proxy /xritrx 127.0.0.1:1692 {
+    proxy /xritrx ${Dashboard_StaticFiles_ServerPath} {
         without /xritrx
     }
-    proxy /lritrx 127.0.0.1:1692 {
+    proxy /lritrx ${Dashboard_StaticFiles_ServerPath} {
         without /lritrx
     }
-    proxy /hritrx 127.0.0.1:1692 {
+    proxy /hritrx ${Dashboard_StaticFiles_ServerPath} {
         without /hritrx
     }
-    proxy /xrit 127.0.0.1:1692 {
+    proxy /xrit ${Dashboard_StaticFiles_ServerPath} {
         without /xrit
     }
-    proxy /lrit 127.0.0.1:1692 {
+    proxy /lrit ${Dashboard_StaticFiles_ServerPath} {
         without /lrit
     }
-    proxy /hrit 127.0.0.1:1692 {
+    proxy /hrit ${Dashboard_StaticFiles_ServerPath} {
         without /hrit
     }
-    proxy /gk-2a 127.0.0.1:1692 {
+    proxy /gk-2a ${Dashboard_StaticFiles_ServerPath} {
         without /gk-2a
     }
-    proxy /gk2a 127.0.0.1:1692 {
+    proxy /gk2a ${Dashboard_StaticFiles_ServerPath} {
         without /gk2a
     }
-    proxy /geo-kompsat-2a 127.0.0.1:1692 {
+    proxy /geo-kompsat-2a ${Dashboard_StaticFiles_ServerPath} {
         without /geo-kompsat-2a
     }
-    proxy /geokompsat-2a 127.0.0.1:1692 {
+    proxy /geokompsat-2a ${Dashboard_StaticFiles_ServerPath} {
         without /geokompsat-2a
     }
-    proxy /geo-kompsat2a 127.0.0.1:1692 {
+    proxy /geo-kompsat2a ${Dashboard_StaticFiles_ServerPath} {
         without /geo-kompsat2a
     }
-    proxy /geokompsat2a 127.0.0.1:1692 {
+    proxy /geokompsat2a ${Dashboard_StaticFiles_ServerPath} {
         without /geokompsat2a
     }
     
-    proxy /favicon.ico 127.0.0.1:1692
-    proxy /css/dash.css 127.0.0.1:1692
-    proxy /css/dash.css.map 127.0.0.1:1692
-    proxy /css/dash.scss 127.0.0.1:1692
-    proxy /js/dash.js 127.0.0.1:1692
-    proxy /js/tools.js 127.0.0.1:1692
+    proxy /favicon.ico ${Dashboard_StaticFiles_ServerPath}
+    proxy /css/dash.css ${Dashboard_StaticFiles_ServerPath}
+    proxy /css/dash.css.map ${Dashboard_StaticFiles_ServerPath}
+    proxy /css/dash.scss ${Dashboard_StaticFiles_ServerPath}
+    proxy /js/dash.js ${Dashboard_StaticFiles_ServerPath}
+    proxy /js/tools.js ${Dashboard_StaticFiles_ServerPath}
     
     proxy /api 127.0.0.1:1692
     proxy /api/current 127.0.0.1:1692
     proxy /api/latest 127.0.0.1:1692
     proxy /api/received 127.0.0.1:1692
 EOF
+
+/etc/init.d/nginx start > /dev/null 2>&1 &
 fi
 
 

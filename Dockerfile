@@ -32,6 +32,8 @@ RUN export DIR_TMP="$(mktemp -d)" \
                                                 libairspy-dev \
                                                 librtlsdr-dev \
                                                 graphicsmagick-imagemagick-compat \
+                                                nginx \
+                                                vim \
                                                 psmisc \
                                                 procps \
   && chmod +x /opt/*.py \
@@ -65,6 +67,14 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && tmp=`grep "except ValueError:" /usr/local/bin/xrit-rx/src/ccsds.py` || echo "continue..." \
   && [ -z "$tmp" ] && (sed -Ei "s/self.PLAINTEXT = self.headerField \+ decData/#self.PLAINTEXT = self.headerField + decData/gi" /usr/local/bin/xrit-rx/src/ccsds.py && tmp=`grep "import colorama" /usr/local/bin/xrit-rx/src/ccsds.py` || echo "continue..." && ([ -z "$tmp" ] && sed -Ei "s#import os#import os\n\nimport colorama\nfrom colorama import Fore, Back, Style#gi" /usr/local/bin/xrit-rx/src/ccsds.py && sed -Ei "s#decData = decoder.decrypt\(self.dataField\)#try:\n            decData = decoder.decrypt(self.dataField)\n            self.PLAINTEXT = self.headerField + decData\n        except ValueError:\n            print(\"    \" + Fore.WHITE + Back.RED + Style.BRIGHT + \"DES ECB DECRYPT ERROR:   ValueError\")\n        else:\n            decData = None#gi" /usr/local/bin/xrit-rx/src/ccsds.py) || sed -Ei "s#decData = decoder.decrypt\(self.dataField\)#try:\n            decData = decoder.decrypt(self.dataField)\n            self.PLAINTEXT = self.headerField + decData\n        except ValueError:\n            print(\"    \" + \"DES ECB DECRYPT ERROR:   ValueError\")\n        else:\n            decData = None#gi" /usr/local/bin/xrit-rx/src/ccsds.py) || echo "continue..." \
   && pip3 install --no-cache-dir imageio \
+  && mkdir -p /etc/nginx || echo "continue..." \
+  && mkdir -p /etc/nginx/sites-available || echo "continue..." \
+  && mkdir -p /etc/nginx/sites-enabled || echo "continue..." \
+  && cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default2 || echo "continue..." \
+  && sed -i "s/listen 80/listen 4041/gi" /etc/nginx/sites-available/default2 || echo "continue..." \
+  && sed -i "s/listen \[::]:80/listen [::]:4041/gi" /etc/nginx/sites-available/default2 || echo "continue..." \
+  && sed -i "s#root /var/www/html#root /usr/local/bin/xrit-rx/src/html#gi" /etc/nginx/sites-available/default2 || echo "continue..." \
+  && ln -s /etc/nginx/sites-available/default2 /etc/nginx/sites-enabled/default2 || echo "continue..." \
   && if [ "$(dpkg --print-architecture)" = "armhf" ]; then \
         ARCH="arm7"; \
      else \
