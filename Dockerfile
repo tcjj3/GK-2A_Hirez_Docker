@@ -70,11 +70,23 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && mkdir -p /etc/nginx || echo "continue..." \
   && mkdir -p /etc/nginx/sites-available || echo "continue..." \
   && mkdir -p /etc/nginx/sites-enabled || echo "continue..." \
-  && cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default2 || echo "continue..." \
-  && sed -i "s/listen 80/listen 4041/gi" /etc/nginx/sites-available/default2 || echo "continue..." \
-  && sed -i "s/listen \[::]:80/listen [::]:4041/gi" /etc/nginx/sites-available/default2 || echo "continue..." \
-  && sed -i "s#root /var/www/html#root /usr/local/bin/xrit-rx/src/html#gi" /etc/nginx/sites-available/default2 || echo "continue..." \
-  && ln -s /etc/nginx/sites-available/default2 /etc/nginx/sites-enabled/default2 || echo "continue..." \
+  && touch /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "server {" > /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	listen 4041 default_server;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	listen [::]:4041 default_server;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	root /usr/local/bin/xrit-rx/src/html;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	index index.html index.htm;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	server_name _;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	location / {" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "		try_files $uri $uri/ =404;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	}" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "}" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && ln -s /etc/nginx/sites-available/dashboard_staticfiles /etc/nginx/sites-enabled/dashboard_staticfiles || echo "continue..." \
   && if [ "$(dpkg --print-architecture)" = "armhf" ]; then \
         ARCH="arm7"; \
      else \
