@@ -292,10 +292,14 @@ cat << EOF >> /etc/caddy/Caddyfile
     proxy /geokompsat2a 127.0.0.1:1692 {
         without /geokompsat2a
     }
+    
     proxy /favicon.ico 127.0.0.1:1692
     proxy /css/dash.css 127.0.0.1:1692
+    proxy /css/dash.css.map 127.0.0.1:1692
+    proxy /css/dash.scss 127.0.0.1:1692
     proxy /js/dash.js 127.0.0.1:1692
     proxy /js/tools.js 127.0.0.1:1692
+    
     proxy /api 127.0.0.1:1692
     proxy /api/current 127.0.0.1:1692
     proxy /api/latest 127.0.0.1:1692
