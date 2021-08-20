@@ -139,6 +139,43 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
+**If you want to define the `samplerate` of your SDR, just set the `SAMPLE_RATE` environment variable to the `samplerate value`.**
+<br>
+**Here are some reference values of the `samplerate`: `2500000` for the `Airspy R2`, `3000000` for the `Airspy Mini`, and `1024000` for the `RTL-SDR`.**
+<br>
+**For example:**
+```
+[tcjj3@debian]$ sudo docker volume create xrit-rx
+[tcjj3@debian]$ sudo docker volume create xrit-rx_config
+[tcjj3@debian]$ sudo docker run -d -i -t \
+ --restart always \
+ --name=goesrecv \
+ --device /dev/bus/usb \
+ -e DEVICE=airspy \
+ -e SAMPLE_RATE=2500000 \
+ -e GAIN=50 \
+ -e FREQ=1692140000 \
+ -e BIAS_TEE=true \
+ -e HIREZ=underlay_hirez \
+ -e PM=pristinemask \
+ -e CONVERT_TIMES=2200,0000 \
+ -e PROXY_DASHBOARD=true \
+ -e CREATE_DASHBOARD_LINK=true \
+ -e PROXY_FILEBROWSER=true \
+ -e CREATE_FILEBROWSER_LINK=true \
+ -p 1692:1692 \
+ -p 5001:5001 \
+ -p 5002:5002 \
+ -p 5004:5004 \
+ -p 5005:5005 \
+ -p 6001:6001 \
+ -p 6002:6002 \
+ -p 8888:8888 \
+ -v xrit-rx_config:/opt/xrit-rx_config \
+ -v xrit-rx:/usr/local/bin/xrit-rx/src/received/LRIT \
+ tcjj3/gk-2a_hirez_docker:latest
+```
+
 
 **If you don't want to use `Underlay-Hirez.jpg` or `PristineMask.jpg` for `Underlay` or `Mask`, just remove the `HIREZ` or the `PM` environment variables, like this:**
 
