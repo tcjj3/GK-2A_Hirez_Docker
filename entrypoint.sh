@@ -67,6 +67,15 @@ fi
 
 
 
+if [ ! -z "$SAMPLE_RATE" ]; then
+	SAMPLE_RATE_STRING="sample_rate = $SAMPLE_RATE"
+else
+	SAMPLE_RATE_STRING=""
+fi
+
+
+
+
 if [ $BIAS_TEE = "1" ]; then
 	BIAS_TEE="true"
 fi
@@ -119,6 +128,7 @@ downlink = "lrit"
 source = "airspy"
 [airspy]
 frequency = $FREQ
+$SAMPLE_RATE_STRING
 gain = $GAIN
 $BIAS_TEE_STRING
 [costas]
@@ -146,7 +156,7 @@ downlink = "lrit"
 source = "rtlsdr"
 [rtlsdr]
 frequency = $FREQ
-sample_rate = 1024000
+$SAMPLE_RATE_STRING
 gain = $GAIN
 $BIAS_TEE_STRING
 $DEVICE_INDEX_STRING
