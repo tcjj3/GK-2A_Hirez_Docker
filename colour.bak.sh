@@ -23,11 +23,13 @@ export PATH=$PATH:/usr/local/bin/dotnet
 
 
 # Time Lock
+if [ ! -f /tmp/noreceive ]; then
 vcid_check=`curl -s http://127.0.0.1:1692/api/current/vcid | grep "\"vcid\": 63"`
 while [ -z "$vcid_check" ]; do
 sleep 1
 vcid_check=`curl -s http://127.0.0.1:1692/api/current/vcid | grep "\"vcid\": 63"`
 done
+fi
 
 
 

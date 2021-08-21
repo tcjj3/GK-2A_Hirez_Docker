@@ -53,6 +53,13 @@ if [ -z "$FREQ" ]; then
 fi
 
 
+if [ -z "$NORECEIVE" ]; then
+	rm /tmp/noreceive
+else
+	touch /tmp/noreceive
+fi
+
+
 if [ -z "$NOCOLOUR" ]; then
 	rm /tmp/nocolour
 else
