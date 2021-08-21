@@ -21,6 +21,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
                                                 build-essential \
                                                 ca-certificates \
                                                 curl \
+                                                wget \
                                                 unzip \
                                                 cmake \
                                                 zlib1g-dev \
@@ -136,7 +137,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && echo "57 23 * * * /opt/convert.sh &" >> ${DIR_TMP}/crontab \
   && crontab ${DIR_TMP}/crontab \
   && rm -rf ${DIR_TMP} \
-  && apt-get autoremove --purge curl unzip ca-certificates make build-essential cmake git -y
+  && apt-get autoremove --purge unzip make build-essential cmake git -y
 
 
 

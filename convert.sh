@@ -69,6 +69,20 @@ echo "$result"
 
 
 
+# Time Lock
+vcid_check=`curl -s http://127.0.0.1:1692/api/current/vcid | grep "\"vcid\": 63"`
+while [ -z "$vcid_check" ]; do
+sleep 1
+vcid_check=`curl -s http://127.0.0.1:1692/api/current/vcid | grep "\"vcid\": 63"`
+done
+
+
+
+
+
+
+
+
 # Vars
 DATE="$1"
 [ -z "$DATE" ] && DATE="$(date +%Y%m%d)"
@@ -79,7 +93,6 @@ FileTime=`getFileTime "$Time"`
 
 Pic_Dir="/usr/local/bin/xrit-rx/src/received/LRIT/COLOURED/${DATE}"
 Gif_Dir="${Pic_Dir}/Merged"
-
 
 
 
