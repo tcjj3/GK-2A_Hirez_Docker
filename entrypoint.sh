@@ -51,6 +51,20 @@ if [ -z "$FREQ" ]; then
 fi
 
 
+if [ -z "$NOCOLOUR" ]; then
+	rm /tmp/nocolour
+else
+	touch /tmp/nocolour
+fi
+
+
+if [ -z "$NOCONVERT" ]; then
+	rm /tmp/noconvert
+else
+	touch /tmp/noconvert
+fi
+
+
 if [ -z "$HIREZ" ]; then
 	rm /tmp/underlay_hirez
 else
@@ -120,6 +134,8 @@ fi
 
 
 
+if [ -z "$NORECEIVE" ]; then
+
 if [ $DEVICE = "airspy" ] ; then
 cat << EOF > /etc/goestools/goesrecv.conf
 [demodulator]
@@ -180,6 +196,8 @@ else
 	echo >&2 'error: incorrect DEVICE environment variable'
 	echo >&2 '  Check your DEVICE string and deploy again?'
 	exit 1
+fi
+
 fi
 
 
@@ -522,14 +540,22 @@ cd /opt/xrit-rx_config > /dev/null 2>&1
 
 
 
+if [ -z "$NORECEIVE" ]; then
 /usr/local/bin/goesrecv -i 1 -c /etc/goestools/goesrecv.conf > /dev/null 2>&1 &
+fi
 
 /opt/goestools_monitor_to_terminate_python3.sh > /dev/null 2>&1 &
 
 
 
+
 cd /usr/local/bin/xrit-rx/src > /dev/null 2>&1
+
+if [ -z "$NORECEIVE" ]; then
 /usr/bin/python3 xrit-rx.py > /dev/null 2>&1
+else
+/bin/bash > /dev/null 2>&1
+fi
 
 
 

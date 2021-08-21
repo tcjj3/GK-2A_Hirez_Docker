@@ -69,6 +69,14 @@ echo "$result"
 
 
 
+[ -f /tmp/noconvert ] && exit 0
+
+
+
+
+
+
+
 # Time Lock
 vcid_check=`curl -s http://127.0.0.1:1692/api/current/vcid | grep "\"vcid\": 63"`
 while [ -z "$vcid_check" ]; do

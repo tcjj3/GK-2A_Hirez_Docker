@@ -4,6 +4,14 @@
 
 
 
+[ -f /tmp/nocolour ] && exit 0
+
+
+
+
+
+
+
 # System environment
 export DOTNET_ROOT=/usr/local/bin/dotnet
 export PATH=$PATH:/usr/local/bin/dotnet
