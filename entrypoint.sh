@@ -28,10 +28,12 @@ Dashboard_StaticFiles_ServerPath="127.0.0.1:4041"
 
 
 
+if [ -z "$NORECEIVE" ]; then
 if [ -z "$DEVICE" ]; then
 	echo >&2 'error: missing required DEVICE environment variable'
 	echo >&2 '  Did you forget to -e DEVICE=... ?'
 	exit 1
+fi
 fi
 
 
