@@ -74,6 +74,12 @@ else
 fi
 
 
+if [ ! -z "$DASHBOARDSERVER" ]; then
+	Dashboard_StaticFiles_ServerPath="$DASHBOARDSERVER"
+	echo "$DASHBOARDSERVER" > /tmp/dashboardserver
+fi
+
+
 if [ -z "$HIREZ" ]; then
 	rm /tmp/underlay_hirez
 else

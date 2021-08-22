@@ -77,13 +77,28 @@ echo "$result"
 
 
 
-# Time Lock
+# Receive Lock
+Dashboard_Server="127.0.0.1:1692"
+tmp_Dashboard_Server=""
+if [ -f /tmp/dashboardserver ]; then
+tmp_Dashboard_Server=`cat /tmp/dashboardserver | head -n 1`
+[ ! -z "$tmp_Dashboard_Server" ] && Dashboard_Server="$tmp_Dashboard_Server"
+fi
+
 if [ ! -f /tmp/noreceive ]; then
-vcid_check=`curl -s http://127.0.0.1:1692/api/current/vcid | grep "\"vcid\": 63"`
+vcid_check=`curl -s http://${Dashboard_Server}/api/current/vcid | grep "\"vcid\": 63"`
 while [ -z "$vcid_check" ]; do
 sleep 1
-vcid_check=`curl -s http://127.0.0.1:1692/api/current/vcid | grep "\"vcid\": 63"`
+vcid_check=`curl -s http://${Dashboard_Server}/api/current/vcid | grep "\"vcid\": 63"`
 done
+else
+if [ ! -z "$tmp_Dashboard_Server" ]; then
+vcid_check=`curl -s http://${tmp_Dashboard_Server}/api/current/vcid | grep "\"vcid\": 63"`
+while [ -z "$vcid_check" ]; do
+sleep 1
+vcid_check=`curl -s http://${tmp_Dashboard_Server}/api/current/vcid | grep "\"vcid\": 63"`
+done
+fi
 fi
 
 
