@@ -115,8 +115,16 @@ mkdir -p /tmp/resize_${DATE}_${FileTime}
 cd ${Pic_Dir}
 for IMG in $(ls *.jpg);
  do
-  #convert -resize "800x800" -strip -quality 75% ${IMG} /tmp/resize_${DATE}_${FileTime}/${IMG};
-  convert -resize "1080x1080" -strip -quality 100% ${IMG} /tmp/resize_${DATE}_${FileTime}/${IMG};
+  
+  FileName=`echo "${IMG}" | awk -F "_IR" '{print $2}' | head -n 1`
+  if [ ! -z "${FileName}" ]; then
+    FileName="IMG_FD_IR${FileName}"
+  else
+    FileName="${IMG}"
+  fi
+  
+  #convert -resize "800x800" -strip -quality 75% ${IMG} /tmp/resize_${DATE}_${FileTime}/${FileName};
+  convert -resize "1080x1080" -strip -quality 100% ${IMG} /tmp/resize_${DATE}_${FileTime}/${FileName};
  done
 
 
