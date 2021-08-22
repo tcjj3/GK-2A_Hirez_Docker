@@ -17,6 +17,7 @@ echo "$len"
 
 
 #Dashboard_StaticFiles_ServerPath="127.0.0.1:1692"
+#[ ! -z "$DASHBOARDSERVER" ] && Dashboard_StaticFiles_ServerPath="$DASHBOARDSERVER"
 Dashboard_StaticFiles_ServerPath="127.0.0.1:4041"
 
 
@@ -75,8 +76,9 @@ fi
 
 
 if [ ! -z "$DASHBOARDSERVER" ]; then
-	Dashboard_StaticFiles_ServerPath="$DASHBOARDSERVER"
 	echo "$DASHBOARDSERVER" > /tmp/dashboardserver
+else
+	DASHBOARDSERVER="127.0.0.1:1692"
 fi
 
 
@@ -354,10 +356,10 @@ cat << EOF >> /etc/caddy/Caddyfile
     proxy /js/dash.js ${Dashboard_StaticFiles_ServerPath}
     proxy /js/tools.js ${Dashboard_StaticFiles_ServerPath}
     
-    proxy /api 127.0.0.1:1692
-    proxy /api/current 127.0.0.1:1692
-    proxy /api/latest 127.0.0.1:1692
-    proxy /api/received 127.0.0.1:1692
+    proxy /api $DASHBOARDSERVER
+    proxy /api/current $DASHBOARDSERVER
+    proxy /api/latest $DASHBOARDSERVER
+    proxy /api/received $DASHBOARDSERVER
 EOF
 
 /etc/init.d/nginx start > /dev/null 2>&1 &
