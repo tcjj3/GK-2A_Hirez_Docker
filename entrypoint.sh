@@ -448,6 +448,8 @@ cat << EOF >> /etc/caddy/Caddyfile
     proxy /static/fonts 127.0.0.1:8888
     proxy /static 127.0.0.1:8888
     proxy /api/resources 127.0.0.1:8888
+    proxy /settings 127.0.0.1:8888
+    proxy /settings/ 127.0.0.1:8888
     proxy /settings/profile 127.0.0.1:8888
     proxy /api/shares 127.0.0.1:8888
     proxy /settings/users 127.0.0.1:8888
