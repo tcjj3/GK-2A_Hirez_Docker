@@ -217,6 +217,8 @@ Run GK-2A_Hirez_Docker.
 
 **If you just want to `use it to convert the pictures from other server(s)`, set the `NORECEIVE` environment variable to a `Not Empty` value, such as "`true`", it will not try to receive anything and just start for convert pictures.**
 <br>
+**In the above example, if you want to `forward the Dashboard on 5005 port by this server`, just set the `DASHBOARDSERVER` environment variable to your `Dashboard Server IP Address And Port`, such as "`192.168.1.2:1692`".**
+<br>
 **For example:**
 ```
 [tcjj3@debian]$ sudo docker volume create xrit-rx
@@ -229,8 +231,9 @@ Run GK-2A_Hirez_Docker.
  -e PM=pristinemask \
  -e NORECEIVE=true \
  -e CONVERT_TIMES=2200,0000 \
- -e PROXY_DASHBOARD=false \
- -e CREATE_DASHBOARD_LINK=false \
+ -e DASHBOARDSERVER="192.168.1.2:1692" \
+ -e PROXY_DASHBOARD=true \
+ -e CREATE_DASHBOARD_LINK=true \
  -e PROXY_FILEBROWSER=true \
  -e CREATE_FILEBROWSER_LINK=true \
  -p 5005:5005 \
