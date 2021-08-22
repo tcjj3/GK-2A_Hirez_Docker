@@ -8,6 +8,14 @@
 
 
 
+[ -f /tmp/noreceive ] && exit 0
+
+
+
+
+
+
+
 while true; do
 
 

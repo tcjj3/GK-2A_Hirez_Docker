@@ -551,9 +551,9 @@ cd /opt/xrit-rx_config > /dev/null 2>&1
 
 if [ -z "$NORECEIVE" ]; then
 /usr/local/bin/goesrecv -i 1 -c /etc/goestools/goesrecv.conf > /dev/null 2>&1 &
-fi
 
 /opt/goestools_monitor_to_terminate_python3.sh > /dev/null 2>&1 &
+fi
 
 
 
