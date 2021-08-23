@@ -55,21 +55,21 @@ fi
 
 
 if [ -z "$NORECEIVE" ]; then
-	rm /tmp/noreceive
+	rm -rf /tmp/noreceive
 else
 	touch /tmp/noreceive
 fi
 
 
 if [ -z "$NOCOLOUR" ]; then
-	rm /tmp/nocolour
+	rm -rf /tmp/nocolour
 else
 	touch /tmp/nocolour
 fi
 
 
 if [ -z "$NOCONVERT" ]; then
-	rm /tmp/noconvert
+	rm -rf /tmp/noconvert
 else
 	touch /tmp/noconvert
 fi
@@ -79,18 +79,19 @@ if [ ! -z "$DASHBOARDSERVER" ]; then
 	echo "$DASHBOARDSERVER" > /tmp/dashboardserver
 else
 	DASHBOARDSERVER="127.0.0.1:1692"
+	rm -rf /tmp/dashboardserver
 fi
 
 
 if [ -z "$HIREZ" ]; then
-	rm /tmp/underlay_hirez
+	rm -rf /tmp/underlay_hirez
 else
 	touch /tmp/underlay_hirez
 fi
 
 
 if [ -z "$PM" ]; then
-	rm /tmp/pristinemask
+	rm -rf /tmp/pristinemask
 else
 	touch /tmp/pristinemask
 fi
