@@ -95,7 +95,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "}" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
-  && echo "server {" > /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "server {" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	listen 4042 default_server;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	listen [::]:4042 default_server;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
