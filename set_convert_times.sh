@@ -22,7 +22,10 @@ CONVERT_TIMES="$1"
 if [ ! -z "$CONVERT_TIMES" ]; then
 rm -rf /tmp/crontab
 touch /tmp/crontab
-echo "4,14,24,34,44,54 * * * * /opt/colour.sh &" > /tmp/crontab
+
+#echo "4,14,24,34,44,54 * * * * /opt/colour.sh &" > /tmp/crontab
+crontab -l | grep -v "/opt/convert.sh" > /tmp/crontab
+
 rm -rf /tmp/crontab_
 touch /tmp/crontab_
 echo "$CONVERT_TIMES" | sed "s/,/\n/gi" | while read LINE; do

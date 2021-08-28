@@ -51,6 +51,13 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && make install \
   && git clone https://github.com/sam210723/xrit-rx /usr/local/bin/xrit-rx \
   && mkdir -p /usr/local/bin/xrit-rx/src/received \
+  && cp -r /usr/local/bin/xrit-rx/src/html /usr/local/bin/xrit-rx/src/html_coloured \
+  && cp /usr/local/bin/xrit-rx/src/html_coloured/js/dash.js /usr/local/bin/xrit-rx/src/html_coloured/js/dash.bak.js \
+  && sed -i "s#if (ext != \"txt\") {#if (ext != \"txt\") {\n            if (url.indexOf(\"/FD/\") > -1) {\n                var fname_new = fname + \"-fc\";\n                \n                var url_old = url;\n                var Regex_FullDisk = /received\\\/LRIT\\\//i;\n                url = url.replace(Regex_FullDisk, \"received/LRIT/COLOURED/\");\n                Regex_FullDisk = /.jpg/i;\n                url = url.replace(Regex_FullDisk, \"-fc.jpg\");\n                Regex_FullDisk = /\\\/FD\\\//i;\n                url = url.replace(Regex_FullDisk, \"/\");\n            }\n#gi" /usr/local/bin/xrit-rx/src/html_coloured/js/dash.js \
+  && sed -i "s#if (img.getAttribute(\"src\") != url) {#if (img.getAttribute(\"src\") != url) {\n                if (url_old != null \&\& url_old != \"\" \&\& url_old != url) {\n                    img.onerror = function() {img.setAttribute(\"src\", url_old); link.setAttribute(\"href\", url_old);};\n                    img.onload = function() {if (img.getAttribute(\"src\").indexOf(\"-fc\") > -1) cap.innerText = fname_new;};\n                } else {\n                    img.onerror = function() {};\n                    img.onload = function() {};\n                }\n#gi" /usr/local/bin/xrit-rx/src/html_coloured/js/dash.js \
+  && cp /usr/local/bin/xrit-rx/src/html_coloured/js/dash.js /usr/local/bin/xrit-rx/src/html_coloured/js/dash_coloured.js \
+  && cp /usr/local/bin/xrit-rx/src/html_coloured/index.html /usr/local/bin/xrit-rx/src/html_coloured/index.bak.html
+  && sed -i "s#\"js/dash.js\"#\"js/dash_coloured.js\"#gi" /usr/local/bin/xrit-rx/src/html_coloured/index.html \
   && pip3 install --no-cache-dir -r /usr/local/bin/xrit-rx/requirements.txt \
   && curl -L http://nmsc.kma.go.kr/resources/enhome/resources/satellites/coms/COMS_Decryption_Sample_Cpp.zip -o ${DIR_TMP}/COMS_Decryption_Sample_Cpp.zip \
   && unzip -j ${DIR_TMP}/COMS_Decryption_Sample_Cpp.zip EncryptionKeyMessage_001F2904C905.bin -d ${DIR_TMP} \
@@ -77,6 +84,22 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && echo "	listen [::]:4041 default_server;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	root /usr/local/bin/xrit-rx/src/html;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	index index.html index.htm;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	server_name _;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	location / {" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "		try_files \$uri \$uri/ =404;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	}" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "}" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "server {" > /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	listen 4042 default_server;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	listen [::]:4042 default_server;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	root /usr/local/bin/xrit-rx/src/html_coloured;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	index index.html index.htm;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \

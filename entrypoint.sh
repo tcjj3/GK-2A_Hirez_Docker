@@ -21,6 +21,11 @@ echo "$len"
 Dashboard_StaticFiles_ServerPath="127.0.0.1:4041"
 
 
+#Dashboard_StaticFiles_ServerPath_Coloured="127.0.0.1:1692"
+#[ ! -z "$DASHBOARDSERVER" ] && Dashboard_StaticFiles_ServerPath_Coloured="$DASHBOARDSERVER"
+Dashboard_StaticFiles_ServerPath_Coloured="127.0.0.1:4042"
+
+
 
 
 
@@ -216,6 +221,14 @@ else
 	exit 1
 fi
 
+
+else
+crontab -l | grep -v "/opt/colour.sh" > /tmp/crontab
+echo "3,13,23,33,43,53 * * * * /opt/colour.sh &" > /tmp/crontab_
+cat /tmp/crontab_ | sort -u >> /tmp/crontab
+crontab /tmp/crontab
+rm -rf /tmp/crontab
+rm -rf /tmp/crontab_
 fi
 
 
@@ -350,11 +363,71 @@ cat << EOF >> /etc/caddy/Caddyfile
         without /geokompsat2a
     }
     
+    proxy /dash_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /dash_coloured
+    }
+    proxy /dashboard_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /dashboard_coloured
+    }
+    proxy /db_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /db_coloured
+    }
+    proxy /d_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /d_coloured
+    }
+    proxy /xrit-rx_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /xrit-rx_coloured
+    }
+    proxy /lrit-rx_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /lrit-rx_coloured
+    }
+    proxy /hrit-rx_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /hrit-rx_coloured
+    }
+    proxy /xritrx_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /xritrx_coloured
+    }
+    proxy /lritrx_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /lritrx_coloured
+    }
+    proxy /hritrx_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /hritrx_coloured
+    }
+    proxy /xrit_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /xrit_coloured
+    }
+    proxy /lrit_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /lrit_coloured
+    }
+    proxy /hrit_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /hrit_coloured
+    }
+    proxy /gk-2a_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /gk-2a_coloured
+    }
+    proxy /gk2a_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /gk2a_coloured
+    }
+    proxy /geo-kompsat-2a_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /geo-kompsat-2a_coloured
+    }
+    proxy /geokompsat-2a_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /geokompsat-2a_coloured
+    }
+    proxy /geo-kompsat2a_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /geo-kompsat2a_coloured
+    }
+    proxy /geokompsat2a_coloured ${Dashboard_StaticFiles_ServerPath_Coloured} {
+        without /geokompsat2a_coloured
+    }
+    
     proxy /favicon.ico ${Dashboard_StaticFiles_ServerPath}
     proxy /css/dash.css ${Dashboard_StaticFiles_ServerPath}
     proxy /css/dash.css.map ${Dashboard_StaticFiles_ServerPath}
     proxy /css/dash.scss ${Dashboard_StaticFiles_ServerPath}
     proxy /js/dash.js ${Dashboard_StaticFiles_ServerPath}
+    proxy /js/dash_coloured.js ${Dashboard_StaticFiles_ServerPath_Coloured}
+    proxy /js/dash.bak.js ${Dashboard_StaticFiles_ServerPath_Coloured}
     proxy /js/tools.js ${Dashboard_StaticFiles_ServerPath}
     
     proxy /api $DASHBOARDSERVER
@@ -394,8 +467,12 @@ fi
 if [ $CREATE_DASHBOARD_LINK != "false" ] && [ ! -z "$CREATE_DASHBOARD_LINK" ]; then
 #touch /usr/local/bin/xrit-rx/src/received/LRIT/dashboard > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > /usr/local/bin/xrit-rx/src/received/LRIT/dashboard
+
+#touch /usr/local/bin/xrit-rx/src/received/LRIT/dashboard_coloured > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > /usr/local/bin/xrit-rx/src/received/LRIT/dashboard_coloured
 else
 rm -rf /usr/local/bin/xrit-rx/src/received/LRIT/dashboard > /dev/null 2>&1
+rm -rf /usr/local/bin/xrit-rx/src/received/LRIT/dashboard_coloured > /dev/null 2>&1
 fi
 
 
