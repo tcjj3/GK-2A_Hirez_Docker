@@ -34,13 +34,40 @@ Dashboard_StaticFiles_ServerPath_Coloured="127.0.0.1:4042"
 
 
 
-if [ -z "$NORECEIVE" ]; then
+
+if [ $NORECEIVE = "1" ]; then
+	NORECEIVE="true"
+fi
+
+if [ $NORECEIVE = "0" ]; then
+	NORECEIVE="false"
+fi
+
+if [ $NORECEIVE = "True" ]; then
+	NORECEIVE="true"
+fi
+
+if [ $NORECEIVE = "False" ]; then
+	NORECEIVE="false"
+fi
+
+if [ $NORECEIVE = "TRUE" ]; then
+	NORECEIVE="true"
+fi
+
+if [ $NORECEIVE = "FALSE" ]; then
+	NORECEIVE="false"
+fi
+
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
 if [ -z "$DEVICE" ]; then
 	echo >&2 'error: missing required DEVICE environment variable'
 	echo >&2 '  Did you forget to -e DEVICE=... ?'
 	exit 1
 fi
 fi
+
+
 
 
 if [ -z "$GAIN" ]; then
@@ -54,52 +81,116 @@ fi
 
 
 
+
+
 if [ -z "$FREQ" ]; then
 	FREQ="1692140000"
 fi
 
 
-if [ -z "$NORECEIVE" ]; then
-	rm -rf /tmp/noreceive
+
+
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
+	rm -rf /tmp/noreceive > /dev/null 2>&1 &
 else
-	touch /tmp/noreceive
+	touch /tmp/noreceive > /dev/null 2>&1 &
 fi
 
 
-if [ -z "$NOCOLOUR" ]; then
-	rm -rf /tmp/nocolour
+
+
+if [ $NOCOLOUR = "1" ]; then
+	NOCOLOUR="true"
+fi
+
+if [ $NOCOLOUR = "0" ]; then
+	NOCOLOUR="false"
+fi
+
+if [ $NOCOLOUR = "True" ]; then
+	NOCOLOUR="true"
+fi
+
+if [ $NOCOLOUR = "False" ]; then
+	NOCOLOUR="false"
+fi
+
+if [ $NOCOLOUR = "TRUE" ]; then
+	NOCOLOUR="true"
+fi
+
+if [ $NOCOLOUR = "FALSE" ]; then
+	NOCOLOUR="false"
+fi
+
+if [ $NOCOLOUR != "false" ] && [ ! -z "$NOCOLOUR" ]; then
+	rm -rf /tmp/nocolour > /dev/null 2>&1 &
 else
-	touch /tmp/nocolour
+	touch /tmp/nocolour > /dev/null 2>&1 &
 fi
 
 
-if [ -z "$NOCONVERT" ]; then
-	rm -rf /tmp/noconvert
-else
-	touch /tmp/noconvert
+
+
+if [ $NOCONVERT = "1" ]; then
+	NOCONVERT="true"
 fi
+
+if [ $NOCONVERT = "0" ]; then
+	NOCONVERT="false"
+fi
+
+if [ $NOCONVERT = "True" ]; then
+	NOCONVERT="true"
+fi
+
+if [ $NOCONVERT = "False" ]; then
+	NOCONVERT="false"
+fi
+
+if [ $NOCONVERT = "TRUE" ]; then
+	NOCONVERT="true"
+fi
+
+if [ $NOCONVERT = "FALSE" ]; then
+	NOCONVERT="false"
+fi
+
+if [ $NOCONVERT != "false" ] && [ ! -z "$NOCONVERT" ]; then
+	rm -rf /tmp/noconvert > /dev/null 2>&1 &
+else
+	touch /tmp/noconvert > /dev/null 2>&1 &
+fi
+
+
 
 
 if [ ! -z "$DASHBOARDSERVER" ]; then
 	echo "$DASHBOARDSERVER" > /tmp/dashboardserver
 else
 	DASHBOARDSERVER="127.0.0.1:1692"
-	rm -rf /tmp/dashboardserver
+	rm -rf /tmp/dashboardserver > /dev/null 2>&1 &
 fi
+
+
 
 
 if [ -z "$HIREZ" ]; then
-	rm -rf /tmp/underlay_hirez
+	rm -rf /tmp/underlay_hirez > /dev/null 2>&1 &
 else
-	touch /tmp/underlay_hirez
+	touch /tmp/underlay_hirez > /dev/null 2>&1 &
 fi
+
+
 
 
 if [ -z "$PM" ]; then
-	rm -rf /tmp/pristinemask
+	rm -rf /tmp/pristinemask > /dev/null 2>&1 &
 else
-	touch /tmp/pristinemask
+	touch /tmp/pristinemask > /dev/null 2>&1 &
 fi
+
+
 
 
 
@@ -109,6 +200,8 @@ if [ ! -z "$SAMPLE_RATE" ]; then
 else
 	SAMPLE_RATE_STRING=""
 fi
+
+
 
 
 
@@ -146,6 +239,8 @@ fi
 
 
 
+
+
 if [ ! -z "$DEVICE_INDEX" ]; then
 	DEVICE_INDEX_STRING="device_index = $DEVICE_INDEX"
 else
@@ -157,7 +252,9 @@ fi
 
 
 
-if [ -z "$NORECEIVE" ]; then
+
+
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
 
 if [ $DEVICE = "airspy" ] ; then
 cat << EOF > /etc/goestools/goesrecv.conf
@@ -594,6 +691,86 @@ fi
 
 
 
+
+
+if [ $SHOW_LATESTIMAGES = "1" ]; then
+	SHOW_LATESTIMAGES="true"
+fi
+
+if [ $SHOW_LATESTIMAGES = "0" ]; then
+	SHOW_LATESTIMAGES="false"
+fi
+
+if [ $SHOW_LATESTIMAGES = "True" ]; then
+	SHOW_LATESTIMAGES="true"
+fi
+
+if [ $SHOW_LATESTIMAGES = "False" ]; then
+	SHOW_LATESTIMAGES="false"
+fi
+
+if [ $SHOW_LATESTIMAGES = "TRUE" ]; then
+	SHOW_LATESTIMAGES="true"
+fi
+
+if [ $SHOW_LATESTIMAGES = "FALSE" ]; then
+	SHOW_LATESTIMAGES="false"
+fi
+
+if [ $SHOW_LATESTIMAGES != "false" ] && [ ! -z "$SHOW_LATESTIMAGES" ]; then
+touch /tmp/showlatestimages > /dev/null 2>&1 &
+
+cat << EOF >> /etc/caddy/Caddyfile
+    
+    proxy /LatestFullDisk.jpg 127.0.0.1:4043
+    proxy /LatestFullDisk.txt 127.0.0.1:4043
+    proxy /LatestFullDisk-fc.jpg 127.0.0.1:4043
+    proxy /LatestFullDisk-fc.txt 127.0.0.1:4043
+    proxy /LatestMerged.gif 127.0.0.1:4043
+    proxy /LatestMerged.txt 127.0.0.1:4043
+EOF
+
+/opt/latest_image_links.sh > /dev/null 2>&1 &
+else
+rm -f /tmp/showlatestimages > /dev/null 2>&1 &
+fi
+
+
+if [ $CREATE_LATESTIMAGES_LINKS = "1" ]; then
+	CREATE_LATESTIMAGES_LINKS="true"
+fi
+
+if [ $CREATE_LATESTIMAGES_LINKS = "0" ]; then
+	CREATE_LATESTIMAGES_LINKS="false"
+fi
+
+if [ $CREATE_LATESTIMAGES_LINKS = "True" ]; then
+	CREATE_LATESTIMAGES_LINKS="true"
+fi
+
+if [ $CREATE_LATESTIMAGES_LINKS = "False" ]; then
+	CREATE_LATESTIMAGES_LINKS="false"
+fi
+
+if [ $CREATE_LATESTIMAGES_LINKS = "TRUE" ]; then
+	CREATE_LATESTIMAGES_LINKS="true"
+fi
+
+if [ $CREATE_LATESTIMAGES_LINKS = "FALSE" ]; then
+	CREATE_LATESTIMAGES_LINKS="false"
+fi
+
+if [ $CREATE_LATESTIMAGES_LINKS != "false" ] && [ ! -z "$CREATE_LATESTIMAGES_LINKS" ]; then
+touch /tmp/createlatestimageslinks > /dev/null 2>&1 &
+else
+rm -f /tmp/createlatestimageslinks > /dev/null 2>&1 &
+fi
+
+
+
+
+
+
 cat << EOF >> /etc/caddy/Caddyfile
     
     
@@ -637,7 +814,7 @@ cd /opt/xrit-rx_config > /dev/null 2>&1
 
 
 
-if [ -z "$NORECEIVE" ]; then
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
 /usr/local/bin/goesrecv -i 1 -c /etc/goestools/goesrecv.conf > /dev/null 2>&1 &
 
 /opt/goestools_monitor_to_terminate_python3.sh > /dev/null 2>&1 &
@@ -648,7 +825,7 @@ fi
 
 cd /usr/local/bin/xrit-rx/src > /dev/null 2>&1
 
-if [ -z "$NORECEIVE" ]; then
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
 /usr/bin/python3 xrit-rx.py > /dev/null 2>&1
 else
 /bin/bash > /dev/null 2>&1
