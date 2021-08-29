@@ -87,7 +87,7 @@ ln -s "${FullDisk_FilePath}" "${LatestImagesDir}/LatestFullDisk.jpg" > /dev/null
 fi
 VritualFilePath=`cat "${LatestImagesDir}/LatestFullDisk.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${FullDisk_VritualFilePath}" ]; then
-echo "${FullDisk_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk.txt" > /dev/null 2>&1
+echo "${FullDisk_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk.txt"
 fi
 else
 if [ -L "${LatestImagesDir}/LatestFullDisk.jpg" ]; then
@@ -129,7 +129,7 @@ ln -s "${FullDisk_Coloured_FilePath}" "${LatestImagesDir}/LatestFullDisk-fc.jpg"
 fi
 VritualFilePath=`cat "${LatestImagesDir}/LatestFullDisk-fc.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${FullDisk_Coloured_VritualFilePath}" ]; then
-echo "${FullDisk_Coloured_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk-fc.txt" > /dev/null 2>&1
+echo "${FullDisk_Coloured_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk-fc.txt"
 fi
 else
 if [ -L "${LatestImagesDir}/LatestFullDisk-fc.jpg" ]; then
@@ -171,7 +171,7 @@ ln -s "${MergedFilePath}" "${LatestImagesDir}/LatestMerged.gif" > /dev/null 2>&1
 fi
 VritualFilePath=`cat "${LatestImagesDir}/LatestMerged.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${MergedVritualFilePath}" ]; then
-echo "${MergedVritualFilePath}" > "${LatestImagesDir}/LatestMerged.txt" > /dev/null 2>&1
+echo "${MergedVritualFilePath}" > "${LatestImagesDir}/LatestMerged.txt"
 fi
 else
 if [ -L "${LatestImagesDir}/LatestMerged.gif" ]; then
