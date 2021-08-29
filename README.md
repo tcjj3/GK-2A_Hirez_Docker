@@ -139,6 +139,42 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
+**If you want to get the latest images (such as "`LatestFullDisk.jpg`", "`LatestFullDisk.jpg`" and "`LatestMerged.gif`") automatic, just set `SHOW_LATESTIMAGES` environment variable to "`true`", and if you want to click a link to jump to the images directly, just set `CREATE_LATESTIMAGES_LINKS` environment variable to "`true`".**
+<br>
+**For example:**
+```
+[tcjj3@debian]$ sudo docker volume create xrit-rx
+[tcjj3@debian]$ sudo docker volume create xrit-rx_config
+[tcjj3@debian]$ sudo docker run -d -i -t \
+ --restart always \
+ --name=goesrecv \
+ --device /dev/bus/usb \
+ -e DEVICE=airspy \
+ -e GAIN=50 \
+ -e FREQ=1692140000 \
+ -e BIAS_TEE=true \
+ -e HIREZ=underlay_hirez \
+ -e PM=pristinemask \
+ -e CONVERT_TIMES=2200,0000 \
+ -e PROXY_DASHBOARD=true \
+ -e CREATE_DASHBOARD_LINK=true \
+ -e PROXY_FILEBROWSER=true \
+ -e CREATE_FILEBROWSER_LINK=true \
+ -e SHOW_LATESTIMAGES=true \
+ -e CREATE_LATESTIMAGES_LINKS=true \
+ -p 1692:1692 \
+ -p 5001:5001 \
+ -p 5002:5002 \
+ -p 5004:5004 \
+ -p 5005:5005 \
+ -p 6001:6001 \
+ -p 6002:6002 \
+ -p 8888:8888 \
+ -v xrit-rx_config:/opt/xrit-rx_config \
+ -v xrit-rx:/usr/local/bin/xrit-rx/src/received/LRIT \
+ tcjj3/gk-2a_hirez_docker:latest
+```
+
 **If you want to define the `samplerate` of your SDR, just set the `SAMPLE_RATE` environment variable to the `samplerate value`.**
 <br>
 **Here are some reference values of the `samplerate`: `2500000` for the `Airspy R2`, `3000000` for the `Airspy Mini`, and `1024000` for the `RTL-SDR`.**
@@ -163,6 +199,8 @@ Run GK-2A_Hirez_Docker.
  -e CREATE_DASHBOARD_LINK=true \
  -e PROXY_FILEBROWSER=true \
  -e CREATE_FILEBROWSER_LINK=true \
+ -e SHOW_LATESTIMAGES=true \
+ -e CREATE_LATESTIMAGES_LINKS=true \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -176,9 +214,9 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
-**If you don't want to `auto colour the LRIT pictures`, just set the `NOCOLOUR` environment variable to a `Not Empty` value, such as "`true`".**
+**If you don't want to `auto colour the LRIT pictures`, just set the `NOCOLOUR` environment variable to "`true`".**
 <br>
-**If you don't want to `auto convert the pictures to gif movie(s)`, just set the `NOCONVERT` environment variable to a `Not Empty` value, such as "`true`".**
+**If you don't want to `auto convert the pictures to gif movie(s)`, just set the `NOCONVERT` environment variable to "`true`".**
 <br>
 **For example:**
 ```
@@ -202,6 +240,8 @@ Run GK-2A_Hirez_Docker.
  -e CREATE_DASHBOARD_LINK=true \
  -e PROXY_FILEBROWSER=true \
  -e CREATE_FILEBROWSER_LINK=true \
+ -e SHOW_LATESTIMAGES=true \
+ -e CREATE_LATESTIMAGES_LINKS=true \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -215,7 +255,7 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
-**If you just want to `use it to convert the pictures from other server(s)`, set the `NORECEIVE` environment variable to a `Not Empty` value, such as "`true`", it will not try to receive anything and just start for convert pictures.**
+**If you just want to `use it to convert the pictures from other server(s)`, set the `NORECEIVE` environment variable to "`true`", it will not try to receive anything and just start for convert pictures.**
 <br>
 **In the above example, if you want to `forward the Dashboard on 5005 port by this server`, just set the `DASHBOARDSERVER` environment variable to your `Dashboard Server IP Address And Port`, such as "`192.168.1.2:1692`".**
 <br>
@@ -236,6 +276,8 @@ Run GK-2A_Hirez_Docker.
  -e CREATE_DASHBOARD_LINK=true \
  -e PROXY_FILEBROWSER=true \
  -e CREATE_FILEBROWSER_LINK=true \
+ -e SHOW_LATESTIMAGES=true \
+ -e CREATE_LATESTIMAGES_LINKS=true \
  -p 5005:5005 \
  -p 8888:8888 \
  -v xrit-rx_config:/opt/xrit-rx_config \
