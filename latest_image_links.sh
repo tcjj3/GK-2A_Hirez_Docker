@@ -79,6 +79,10 @@ if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk.json" ]; then
 #touch ${LatestImagesLinksDir}/LatestFullDisk.json > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk.json
 fi
+if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk.js" ]; then
+#touch ${LatestImagesLinksDir}/LatestFullDisk.js > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk.js
+fi
 if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk.htm" ]; then
 #touch ${LatestImagesLinksDir}/LatestFullDisk.htm > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk.htm
@@ -92,6 +96,9 @@ rm -f "${LatestImagesLinksDir}/LatestFullDisk.txt" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesLinksDir}/LatestFullDisk.json" ]; then
 rm -f "${LatestImagesLinksDir}/LatestFullDisk.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk.js" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk.js" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesLinksDir}/LatestFullDisk.htm" ]; then
 rm -f "${LatestImagesLinksDir}/LatestFullDisk.htm" > /dev/null 2>&1
@@ -107,12 +114,17 @@ VritualFilePath=`cat "${LatestImagesDir}/LatestFullDisk.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${FullDisk_VritualFilePath}" ]; then
 echo "${FullDisk_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk.txt"
 
-[ -f "/tmp/latestfulldiskcallback" ] && LATESTFULLDISK_CALLBACK=`cat /tmp/latestfulldiskcallback | head -n 1`
 json_contents="{\"image\": \"${FullDisk_VritualFilePath}\"}"
+echo "Callback_LatestFullDisk(${json_contents})" > "${LatestImagesDir}/LatestFullDisk.js"
+[ -f "/tmp/latestfulldiskcallback" ] && LATESTFULLDISK_CALLBACK=`cat /tmp/latestfulldiskcallback | head -n 1`
 if [ ! -z "${LATESTFULLDISK_CALLBACK}" ]; then
 json_contents="${LATESTFULLDISK_CALLBACK}(${json_contents})"
 fi
 echo "${json_contents}" > "${LatestImagesDir}/LatestFullDisk.json"
+fi
+
+if [ ! -L "${LatestImagesDir}/LatestFullDisk.htm" ]; then
+ln -s "/opt/LatestFullDisk.htm" "${LatestImagesDir}/LatestFullDisk.htm" > /dev/null 2>&1
 fi
 else
 if [ -L "${LatestImagesDir}/LatestFullDisk.jpg" ]; then
@@ -123,6 +135,9 @@ rm -f "${LatestImagesDir}/LatestFullDisk.txt" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesDir}/LatestFullDisk.json" ]; then
 rm -f "${LatestImagesDir}/LatestFullDisk.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesDir}/LatestFullDisk.js" ]; then
+rm -f "${LatestImagesDir}/LatestFullDisk.js" > /dev/null 2>&1
 fi
 fi
 
@@ -149,6 +164,10 @@ if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk-fc.json" ]; then
 #touch ${LatestImagesLinksDir}/LatestFullDisk-fc.json > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk-fc.json
 fi
+if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk-fc.js" ]; then
+#touch ${LatestImagesLinksDir}/LatestFullDisk-fc.js > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk-fc.js
+fi
 if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk-fc.htm" ]; then
 #touch ${LatestImagesLinksDir}/LatestFullDisk-fc.htm > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk-fc.htm
@@ -162,6 +181,9 @@ rm -f "${LatestImagesLinksDir}/LatestFullDisk-fc.txt" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesLinksDir}/LatestFullDisk-fc.json" ]; then
 rm -f "${LatestImagesLinksDir}/LatestFullDisk-fc.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk-fc.js" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk-fc.js" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesLinksDir}/LatestFullDisk-fc.htm" ]; then
 rm -f "${LatestImagesLinksDir}/LatestFullDisk-fc.htm" > /dev/null 2>&1
@@ -177,12 +199,17 @@ VritualFilePath=`cat "${LatestImagesDir}/LatestFullDisk-fc.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${FullDisk_Coloured_VritualFilePath}" ]; then
 echo "${FullDisk_Coloured_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk-fc.txt"
 
-[ -f "/tmp/latestfulldiskfccallback" ] && LATESTFULLDISKFC_CALLBACK=`cat /tmp/latestfulldiskfccallback | head -n 1`
 json_contents="{\"image\": \"${FullDisk_Coloured_VritualFilePath}\"}"
+echo "Callback_LatestFullDisk_fc(${json_contents})" > "${LatestImagesDir}/LatestFullDisk-fc.js"
+[ -f "/tmp/latestfulldiskfccallback" ] && LATESTFULLDISKFC_CALLBACK=`cat /tmp/latestfulldiskfccallback | head -n 1`
 if [ ! -z "${LATESTFULLDISKFC_CALLBACK}" ]; then
 json_contents="${LATESTFULLDISKFC_CALLBACK}(${json_contents})"
 fi
 echo "${json_contents}" > "${LatestImagesDir}/LatestFullDisk-fc.json"
+fi
+
+if [ ! -L "${LatestImagesDir}/LatestFullDisk-fc.htm" ]; then
+ln -s "/opt/LatestFullDisk-fc.htm" "${LatestImagesDir}/LatestFullDisk-fc.htm" > /dev/null 2>&1
 fi
 else
 if [ -L "${LatestImagesDir}/LatestFullDisk-fc.jpg" ]; then
@@ -193,6 +220,9 @@ rm -f "${LatestImagesDir}/LatestFullDisk-fc.txt" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesDir}/LatestFullDisk-fc.json" ]; then
 rm -f "${LatestImagesDir}/LatestFullDisk-fc.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesDir}/LatestFullDisk-fc.js" ]; then
+rm -f "${LatestImagesDir}/LatestFullDisk-fc.js" > /dev/null 2>&1
 fi
 fi
 
@@ -219,6 +249,10 @@ if [ ! -f "${LatestImagesLinksDir}/LatestMerged.json" ]; then
 #touch ${LatestImagesLinksDir}/LatestMerged.json > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestMerged.json
 fi
+if [ ! -f "${LatestImagesLinksDir}/LatestMerged.js" ]; then
+#touch ${LatestImagesLinksDir}/LatestMerged.js > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestMerged.js
+fi
 if [ ! -f "${LatestImagesLinksDir}/LatestMerged.htm" ]; then
 #touch ${LatestImagesLinksDir}/LatestMerged.htm > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestMerged.htm
@@ -232,6 +266,9 @@ rm -f "${LatestImagesLinksDir}/LatestMerged.txt" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesLinksDir}/LatestMerged.json" ]; then
 rm -f "${LatestImagesLinksDir}/LatestMerged.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestMerged.js" ]; then
+rm -f "${LatestImagesLinksDir}/LatestMerged.js" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesLinksDir}/LatestMerged.htm" ]; then
 rm -f "${LatestImagesLinksDir}/LatestMerged.htm" > /dev/null 2>&1
@@ -247,12 +284,17 @@ VritualFilePath=`cat "${LatestImagesDir}/LatestMerged.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${MergedVritualFilePath}" ]; then
 echo "${MergedVritualFilePath}" > "${LatestImagesDir}/LatestMerged.txt"
 
-[ -f "/tmp/latestmergedcallback" ] && LATESTMERGED_CALLBACK=`cat /tmp/latestmergedcallback | head -n 1`
 json_contents="{\"image\": \"${MergedVritualFilePath}\"}"
+echo "Callback_LatestMerged(${json_contents})" > "${LatestImagesDir}/LatestMerged.js"
+[ -f "/tmp/latestmergedcallback" ] && LATESTMERGED_CALLBACK=`cat /tmp/latestmergedcallback | head -n 1`
 if [ ! -z "${LATESTMERGED_CALLBACK}" ]; then
 json_contents="${LATESTMERGED_CALLBACK}(${json_contents})"
 fi
 echo "${json_contents}" > "${LatestImagesDir}/LatestMerged.json"
+fi
+
+if [ ! -L "${LatestImagesDir}/LatestMerged.htm" ]; then
+ln -s "/opt/LatestMerged.htm" "${LatestImagesDir}/LatestMerged.htm" > /dev/null 2>&1
 fi
 else
 if [ -L "${LatestImagesDir}/LatestMerged.gif" ]; then

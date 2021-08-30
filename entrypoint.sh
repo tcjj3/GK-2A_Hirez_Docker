@@ -26,7 +26,39 @@ Dashboard_StaticFiles_ServerPath="127.0.0.1:4041"
 Dashboard_StaticFiles_ServerPath_Coloured="127.0.0.1:4042"
 
 
+#Latest_Images_ServerPath="127.0.0.1:1692/received/LRIT"
+#[ ! -z "$Latest_Images_ServerPath" ] && Latest_Images_ServerPath="$DASHBOARDSERVER"
+Latest_Images_ServerPath="127.0.0.1:4043"
 
+
+
+
+
+
+
+
+
+
+
+cp /opt/LatestImage.htm /opt/LatestFullDisk.htm
+cp /opt/LatestImage.htm /opt/LatestFullDisk-fc.htm
+cp /opt/LatestImage.htm /opt/LatestMerged.htm
+
+
+[ -z "$TITLEADDITIONALTEXT" ] && TITLEADDITIONALTEXT=" - GK-2A Satellite Receive Server"
+
+
+sed -i "s#TITLEADDITIONALTEXTINTHEMEBYTCJJ3#$TITLEADDITIONALTEXT#gi" /opt/LatestFullDisk.htm
+sed -i "s#TITLEADDITIONALTEXTINTHEMEBYTCJJ3#$TITLEADDITIONALTEXT#gi" /opt/LatestFullDisk-fc.htm
+sed -i "s#TITLEADDITIONALTEXTINTHEMEBYTCJJ3#$TITLEADDITIONALTEXT#gi" /opt/LatestMerged.htm
+
+sed -i "s#LatestImage.js#LatestFullDisk.js#gi" /opt/LatestFullDisk.htm
+sed -i "s#LatestImage.js#LatestFullDisk-fc.js#gi" /opt/LatestFullDisk-fc.htm
+sed -i "s#LatestImage.js#LatestMerged.js#gi" /opt/LatestMerged.htm
+
+sed -i "s#LatestImage#LatestFullDisk#gi" /opt/LatestFullDisk.htm
+sed -i "s#LatestImage#LatestFullDisk-fc#gi" /opt/LatestFullDisk-fc.htm
+sed -i "s#LatestImage#LatestMerged#gi" /opt/LatestMerged.htm
 
 
 
@@ -722,18 +754,21 @@ touch /tmp/showlatestimages > /dev/null 2>&1 &
 
 cat << EOF >> /etc/caddy/Caddyfile
     
-    proxy /LatestFullDisk.jpg 127.0.0.1:4043
-    proxy /LatestFullDisk.txt 127.0.0.1:4043
-    proxy /LatestFullDisk.json 127.0.0.1:4043
-    proxy /LatestFullDisk.htm 127.0.0.1:4043
-    proxy /LatestFullDisk-fc.jpg 127.0.0.1:4043
-    proxy /LatestFullDisk-fc.txt 127.0.0.1:4043
-    proxy /LatestFullDisk-fc.json 127.0.0.1:4043
-    proxy /LatestFullDisk-fc.htm 127.0.0.1:4043
-    proxy /LatestMerged.gif 127.0.0.1:4043
-    proxy /LatestMerged.txt 127.0.0.1:4043
-    proxy /LatestMerged.json 127.0.0.1:4043
-    proxy /LatestMerged.htm 127.0.0.1:4043
+    proxy /LatestFullDisk.jpg ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk.txt ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk.js ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk.json ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk.htm ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk-fc.jpg ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk-fc.txt ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk-fc.js ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk-fc.json ${Latest_Images_ServerPath}
+    proxy /LatestFullDisk-fc.htm ${Latest_Images_ServerPath}
+    proxy /LatestMerged.gif ${Latest_Images_ServerPath}
+    proxy /LatestMerged.txt ${Latest_Images_ServerPath}
+    proxy /LatestMerged.js ${Latest_Images_ServerPath}
+    proxy /LatestMerged.json ${Latest_Images_ServerPath}
+    proxy /LatestMerged.htm ${Latest_Images_ServerPath}
 EOF
 
 /opt/latest_image_links.sh > /dev/null 2>&1 &
