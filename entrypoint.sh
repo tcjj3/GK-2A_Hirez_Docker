@@ -724,10 +724,16 @@ cat << EOF >> /etc/caddy/Caddyfile
     
     proxy /LatestFullDisk.jpg 127.0.0.1:4043
     proxy /LatestFullDisk.txt 127.0.0.1:4043
+    proxy /LatestFullDisk.json 127.0.0.1:4043
+    proxy /LatestFullDisk.htm 127.0.0.1:4043
     proxy /LatestFullDisk-fc.jpg 127.0.0.1:4043
     proxy /LatestFullDisk-fc.txt 127.0.0.1:4043
+    proxy /LatestFullDisk-fc.json 127.0.0.1:4043
+    proxy /LatestFullDisk-fc.htm 127.0.0.1:4043
     proxy /LatestMerged.gif 127.0.0.1:4043
     proxy /LatestMerged.txt 127.0.0.1:4043
+    proxy /LatestMerged.json 127.0.0.1:4043
+    proxy /LatestMerged.htm 127.0.0.1:4043
 EOF
 
 /opt/latest_image_links.sh > /dev/null 2>&1 &
@@ -764,6 +770,31 @@ if [ $CREATE_LATESTIMAGES_LINKS != "false" ] && [ ! -z "$CREATE_LATESTIMAGES_LIN
 touch /tmp/createlatestimageslinks > /dev/null 2>&1 &
 else
 rm -f /tmp/createlatestimageslinks > /dev/null 2>&1 &
+fi
+
+
+
+
+
+
+if [ ! -z "$LATESTFULLDISK_CALLBACK" ]; then
+echo "$LATESTFULLDISK_CALLBACK" > /tmp/latestfulldiskcallback
+else
+rm -f /tmp/latestfulldiskcallback > /dev/null 2>&1 &
+fi
+
+
+if [ ! -z "$LATESTFULLDISKFC_CALLBACK" ]; then
+echo "$LATESTFULLDISKFC_CALLBACK" > /tmp/latestfulldiskfccallback
+else
+rm -f /tmp/latestfulldiskfccallback > /dev/null 2>&1 &
+fi
+
+
+if [ ! -z "$LATESTMERGED_CALLBACK" ]; then
+echo "$LATESTMERGED_CALLBACK" > /tmp/latestmergedcallback
+else
+rm -f /tmp/latestmergedcallback > /dev/null 2>&1 &
 fi
 
 

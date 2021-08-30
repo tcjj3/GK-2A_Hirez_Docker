@@ -75,9 +75,27 @@ if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk.txt" ]; then
 #touch ${LatestImagesLinksDir}/LatestFullDisk.txt > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk.txt
 fi
+if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk.json" ]; then
+#touch ${LatestImagesLinksDir}/LatestFullDisk.json > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk.json
+fi
+if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk.htm" ]; then
+#touch ${LatestImagesLinksDir}/LatestFullDisk.htm > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk.htm
+fi
 else
-rm -f ${LatestImagesLinksDir}/LatestFullDisk.jpg
-rm -f ${LatestImagesLinksDir}/LatestFullDisk.txt
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk.jpg" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk.jpg" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk.txt" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk.txt" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk.json" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk.htm" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk.htm" > /dev/null 2>&1
+fi
 fi
 
 LinkPath=`ls -l "${LatestImagesDir}/LatestFullDisk.jpg" | grep "^l" | awk '{print $NF}'`
@@ -88,6 +106,13 @@ fi
 VritualFilePath=`cat "${LatestImagesDir}/LatestFullDisk.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${FullDisk_VritualFilePath}" ]; then
 echo "${FullDisk_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk.txt"
+
+[ -f "/tmp/latestfulldiskcallback" ] && LATESTFULLDISK_CALLBACK=`cat /tmp/latestfulldiskcallback | head -n 1`
+json_contents="{\"image\": \"${FullDisk_VritualFilePath}\"}"
+if [ ! -z "${LATESTFULLDISK_CALLBACK}" ]; then
+json_contents="${LATESTFULLDISK_CALLBACK}(${json_contents})"
+fi
+echo "${json_contents}" > "${LatestImagesDir}/LatestFullDisk.json"
 fi
 else
 if [ -L "${LatestImagesDir}/LatestFullDisk.jpg" ]; then
@@ -95,6 +120,9 @@ rm -f "${LatestImagesDir}/LatestFullDisk.jpg" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesDir}/LatestFullDisk.txt" ]; then
 rm -f "${LatestImagesDir}/LatestFullDisk.txt" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesDir}/LatestFullDisk.json" ]; then
+rm -f "${LatestImagesDir}/LatestFullDisk.json" > /dev/null 2>&1
 fi
 fi
 
@@ -117,9 +145,27 @@ if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk-fc.txt" ]; then
 #touch ${LatestImagesLinksDir}/LatestFullDisk-fc.txt > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk-fc.txt
 fi
+if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk-fc.json" ]; then
+#touch ${LatestImagesLinksDir}/LatestFullDisk-fc.json > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk-fc.json
+fi
+if [ ! -f "${LatestImagesLinksDir}/LatestFullDisk-fc.htm" ]; then
+#touch ${LatestImagesLinksDir}/LatestFullDisk-fc.htm > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestFullDisk-fc.htm
+fi
 else
-rm -f ${LatestImagesLinksDir}/LatestFullDisk-fc.jpg
-rm -f ${LatestImagesLinksDir}/LatestFullDisk-fc.txt
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk-fc.jpg" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk-fc.jpg" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk-fc.txt" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk-fc.txt" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk-fc.json" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk-fc.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestFullDisk-fc.htm" ]; then
+rm -f "${LatestImagesLinksDir}/LatestFullDisk-fc.htm" > /dev/null 2>&1
+fi
 fi
 
 LinkPath=`ls -l "${LatestImagesDir}/LatestFullDisk-fc.jpg" | grep "^l" | awk '{print $NF}'`
@@ -130,6 +176,13 @@ fi
 VritualFilePath=`cat "${LatestImagesDir}/LatestFullDisk-fc.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${FullDisk_Coloured_VritualFilePath}" ]; then
 echo "${FullDisk_Coloured_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk-fc.txt"
+
+[ -f "/tmp/latestfulldiskfccallback" ] && LATESTFULLDISKFC_CALLBACK=`cat /tmp/latestfulldiskfccallback | head -n 1`
+json_contents="{\"image\": \"${FullDisk_VritualFilePath}\"}"
+if [ ! -z "${LATESTFULLDISKFC_CALLBACK}" ]; then
+json_contents="${LATESTFULLDISKFC_CALLBACK}(${json_contents})"
+fi
+echo "${json_contents}" > "${LatestImagesDir}/LatestFullDisk-fc.json"
 fi
 else
 if [ -L "${LatestImagesDir}/LatestFullDisk-fc.jpg" ]; then
@@ -137,6 +190,9 @@ rm -f "${LatestImagesDir}/LatestFullDisk-fc.jpg" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesDir}/LatestFullDisk-fc.txt" ]; then
 rm -f "${LatestImagesDir}/LatestFullDisk-fc.txt" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesDir}/LatestFullDisk-fc.json" ]; then
+rm -f "${LatestImagesDir}/LatestFullDisk-fc.json" > /dev/null 2>&1
 fi
 fi
 
@@ -159,9 +215,27 @@ if [ ! -f "${LatestImagesLinksDir}/LatestMerged.txt" ]; then
 #touch ${LatestImagesLinksDir}/LatestMerged.txt > /dev/null 2>&1
 echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestMerged.txt
 fi
+if [ ! -f "${LatestImagesLinksDir}/LatestMerged.json" ]; then
+#touch ${LatestImagesLinksDir}/LatestMerged.json > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestMerged.json
+fi
+if [ ! -f "${LatestImagesLinksDir}/LatestMerged.htm" ]; then
+#touch ${LatestImagesLinksDir}/LatestMerged.htm > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestMerged.htm
+fi
 else
-rm -f ${LatestImagesLinksDir}/LatestMerged.gif
-rm -f ${LatestImagesLinksDir}/LatestMerged.txt
+if [ -f "${LatestImagesLinksDir}/LatestMerged.gif" ]; then
+rm -f "${LatestImagesLinksDir}/LatestMerged.gif" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestMerged.txt" ]; then
+rm -f "${LatestImagesLinksDir}/LatestMerged.txt" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestMerged.json" ]; then
+rm -f "${LatestImagesLinksDir}/LatestMerged.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestMerged.htm" ]; then
+rm -f "${LatestImagesLinksDir}/LatestMerged.htm" > /dev/null 2>&1
+fi
 fi
 
 LinkPath=`ls -l "${LatestImagesDir}/LatestMerged.gif" | grep "^l" | awk '{print $NF}'`
@@ -172,6 +246,13 @@ fi
 VritualFilePath=`cat "${LatestImagesDir}/LatestMerged.txt" | head -n 1`
 if [ "${VritualFilePath}" != "${MergedVritualFilePath}" ]; then
 echo "${MergedVritualFilePath}" > "${LatestImagesDir}/LatestMerged.txt"
+
+[ -f "/tmp/latestmergedcallback" ] && LATESTMERGED_CALLBACK=`cat /tmp/latestmergedcallback | head -n 1`
+json_contents="{\"image\": \"${FullDisk_VritualFilePath}\"}"
+if [ ! -z "${LATESTMERGED_CALLBACK}" ]; then
+json_contents="${LATESTMERGED_CALLBACK}(${json_contents})"
+fi
+echo "${json_contents}" > "${LatestImagesDir}/LatestMerged.json"
 fi
 else
 if [ -L "${LatestImagesDir}/LatestMerged.gif" ]; then
@@ -179,6 +260,9 @@ rm -f "${LatestImagesDir}/LatestMerged.gif" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesDir}/LatestMerged.txt" ]; then
 rm -f "${LatestImagesDir}/LatestMerged.txt" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesDir}/LatestMerged.json" ]; then
+rm -f "${LatestImagesDir}/LatestMerged.json" > /dev/null 2>&1
 fi
 fi
 
