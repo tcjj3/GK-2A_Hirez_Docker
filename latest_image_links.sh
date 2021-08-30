@@ -178,7 +178,7 @@ if [ "${VritualFilePath}" != "${FullDisk_Coloured_VritualFilePath}" ]; then
 echo "${FullDisk_Coloured_VritualFilePath}" > "${LatestImagesDir}/LatestFullDisk-fc.txt"
 
 [ -f "/tmp/latestfulldiskfccallback" ] && LATESTFULLDISKFC_CALLBACK=`cat /tmp/latestfulldiskfccallback | head -n 1`
-json_contents="{\"image\": \"${FullDisk_VritualFilePath}\"}"
+json_contents="{\"image\": \"${FullDisk_Coloured_VritualFilePath}\"}"
 if [ ! -z "${LATESTFULLDISKFC_CALLBACK}" ]; then
 json_contents="${LATESTFULLDISKFC_CALLBACK}(${json_contents})"
 fi
@@ -248,7 +248,7 @@ if [ "${VritualFilePath}" != "${MergedVritualFilePath}" ]; then
 echo "${MergedVritualFilePath}" > "${LatestImagesDir}/LatestMerged.txt"
 
 [ -f "/tmp/latestmergedcallback" ] && LATESTMERGED_CALLBACK=`cat /tmp/latestmergedcallback | head -n 1`
-json_contents="{\"image\": \"${FullDisk_VritualFilePath}\"}"
+json_contents="{\"image\": \"${MergedVritualFilePath}\"}"
 if [ ! -z "${LATESTMERGED_CALLBACK}" ]; then
 json_contents="${LATESTMERGED_CALLBACK}(${json_contents})"
 fi
