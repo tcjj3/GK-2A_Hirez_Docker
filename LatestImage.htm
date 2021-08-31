@@ -6,6 +6,10 @@
 <title>LatestImageTITLEADDITIONALTEXTINTHEMEBYTCJJ3</title>
 
 <script type="text/javascript">
+var titleAdditional = "";
+</script>
+
+<script type="text/javascript">
 var paused = false;
 
 function showImage() {
@@ -64,6 +68,16 @@ function Callback_Image(url) {
 		img.onclick = imageOnclick;
 		
 		img.src = url;
+		
+		filename = url;
+		i = indexOf(filename, "?");
+		if (i > -1) filename = filename.substring(0, i);
+		j = lastIndexOf(filename, "/");
+		if (j > -1) filename = filename.substring(j + 1);
+		var filenameSpan = document.getElementById("filenameSpan");
+		filenameSpan.innerHTML = filename;
+		
+		document.title = filename + titleAdditional;
 	}
 }
 
@@ -128,11 +142,20 @@ function Callback_LatestMerged(json) {
 }
 </script>
 
+<script type="text/javascript">
+titleAdditional = "TITLEADDITIONALTEXTINTHEMEBYTCJJ3";
+</script>
+
 </head>
-<body onload="startToShowImage();" style="background-color: black; ">
+<body onload="startToShowImage();" style="background-color: black; color: white; text-align: center; vertical-align: middle; ">
 
 <span id="ScriptSpan"></span>
-<div id="ImageDiv" style="text-align: center; vertical-align: middle; "><img id="image" src="" /></div>
+
+<div id="ImageDiv" style="text-align: center; vertical-align: middle; ">
+<span id="filenameSpan"></span>
+<br />
+<img id="image" src="" />
+</div>
 
 </body>
 </html>
