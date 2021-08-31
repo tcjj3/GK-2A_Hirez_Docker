@@ -69,19 +69,32 @@ function Callback_Image(url) {
 		
 		img.src = url;
 		
-		filename = url;
-		i = filename.indexOf("?");
-		if (i > -1) filename = filename.substring(0, i);
-		j = filename.lastIndexOf("/");
-		if (j > -1) filename = filename.substring(j + 1);
-		var filenameSpan = document.getElementById("filenameSpan");
-		filenameSpan.innerHTML = filename;
-		
-		document.title = filename + titleAdditional;
+		img.onload = function() {
+			filename = url;
+			i = filename.indexOf("?");
+			if (i > -1) filename = filename.substring(0, i);
+			j = filename.lastIndexOf("/");
+			if (j > -1) filename = filename.substring(j + 1);
+			var filenameSpan = document.getElementById("filenameSpan");
+			filenameSpan.innerHTML = filename;
+			
+			document.title = filename + titleAdditional;
+		}
 	}
 }
 
 function setImage() {
+	
+	var playSpan = document.getElementById("playSpan");
+	var pauseSpan = document.getElementById("pauseSpan");
+	if (paused) {
+		playSpan.style.display = "none";
+		pauseSpan.style.display = "inline-block";
+	} else {
+		playSpan.style.display = "inline-block";
+		pauseSpan.style.display = "none";
+	}
+	
 	
 	var w = document.documentElement.clientWidth;
 	if (w <= 0) w = document.body.clientWidth;
@@ -152,6 +165,8 @@ titleAdditional = "TITLEADDITIONALTEXTINTHEMEBYTCJJ3";
 <span id="ScriptSpan"></span>
 
 <div id="ImageDiv" style="text-align: center; vertical-align: middle; ">
+<span id="playSpan" style="border-style: solid; border-width: 6px 0px 6px 11px; height: 0px; width: 11px; border-color: transparent transparent transparent white; display: inline-block; transition: all .5s ease;"></span>
+<span id="pauseSpan" style="border-style: double; border-width: 0px 0px 0px 11px; height: 11px; width: 11px; display: none; "></span>
 <span id="filenameSpan"></span>
 <br />
 <img id="image" src="" />
