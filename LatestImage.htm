@@ -6,6 +6,34 @@
 <title>LatestImageTITLEADDITIONALTEXTINTHEMEBYTCJJ3</title>
 
 <script type="text/javascript">
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) return unescape(r[2]);
+	return null;
+}
+</script>
+
+
+<script type="text/javascript">
+autoStart = true;
+autoStart_String = getQueryString("autostart");
+if (autoStart_String == null || autoStart_String == "") {
+	autoStart = true;
+} else if (autoStart_String.toLowerCase() == "false" || autoStart_String.toLowerCase() == "0") {
+	autoStart = false;
+}
+
+autoUpdate = true;
+autoUpdate_String = getQueryString("autoupdate");
+if (autoUpdate_String == null || autoUpdate_String == "") {
+	autoUpdate = true;
+} else if (autoUpdate_String.toLowerCase() == "false" || autoUpdate_String.toLowerCase() == "0") {
+	autoUpdate = false;
+}
+</script>
+
+<script type="text/javascript">
 var titleAdditional = "";
 </script>
 
@@ -13,21 +41,30 @@ var titleAdditional = "";
 var paused = false;
 
 function showImage() {
-	if (!paused) {
-		var o = document.getElementById("ScriptSpan"); //document.body;
-		while(o.hasChildNodes()) {
-			o.removeChild(o.firstChild);
-		}
-		var sc = document.createElement("script");
-		sc.src = "LatestImage.js" + "?t=" + Date.now();
-		o.appendChild(sc);
+	var o = document.getElementById("ScriptSpan"); //document.body;
+	while(o.hasChildNodes()) {
+		o.removeChild(o.firstChild);
 	}
-	self.setTimeout("showImage()", 1000);
+	var sc = document.createElement("script");
+	sc.src = "LatestImage.js" + "?t=" + Date.now();
+	o.appendChild(sc);
+	
+	if (!paused) {
+		self.setTimeout("showImage()", 1000);
+	}
 }
 
 function startToShowImage() {
 	setImage();
-	showImage();
+	if (!autoUpdate) {
+		paused = true;
+	}
+	if (autoStart) {
+		showImage();
+	} else {
+		paused = true;
+		setImage();
+	}
 }
 
 function Callback_Image(url) {
@@ -142,24 +179,19 @@ function setImage() {
 
 function imageOnclick() { // Clicking on the image will pause the update
 	paused = !paused;
+	if (!paused) showImage();
 }
 
 function Callback_LatestFullDisk(json) {
-	if (!paused) {
-		if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
-	}
+	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
 }
 
 function Callback_LatestFullDisk_fc(json) {
-	if (!paused) {
-		if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
-	}
+	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
 }
 
 function Callback_LatestMerged(json) {
-	if (!paused) {
-		if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
-	}
+	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
 }
 </script>
 
