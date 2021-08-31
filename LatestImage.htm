@@ -70,9 +70,9 @@ function Callback_Image(url) {
 		img.src = url;
 		
 		filename = url;
-		i = indexOf(filename, "?");
+		i = filename.indexOf("?");
 		if (i > -1) filename = filename.substring(0, i);
-		j = lastIndexOf(filename, "/");
+		j = filename.lastIndexOf("/");
 		if (j > -1) filename = filename.substring(j + 1);
 		var filenameSpan = document.getElementById("filenameSpan");
 		filenameSpan.innerHTML = filename;
