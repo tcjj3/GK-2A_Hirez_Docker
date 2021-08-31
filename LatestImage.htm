@@ -69,16 +69,24 @@ function Callback_Image(url) {
 		
 		img.src = url;
 		
-		img.onload = function() {
+		var filenameSpan = document.getElementById("filenameSpan");
+		if (filenameSpan) {
 			filename = url;
 			i = filename.indexOf("?");
 			if (i > -1) filename = filename.substring(0, i);
 			j = filename.lastIndexOf("/");
 			if (j > -1) filename = filename.substring(j + 1);
-			var filenameSpan = document.getElementById("filenameSpan");
-			filenameSpan.innerHTML = filename;
 			
-			document.title = filename + titleAdditional;
+			if (filenameSpan.innerHTML != null && filenameSpan.innerHTML.trim() != "") {
+				img.onload = function() {
+					filenameSpan.innerHTML = filename;
+					document.title = filename + titleAdditional;
+				};
+			} else {
+				img.onload = function() {};
+				filenameSpan.innerHTML = filename;
+				document.title = filename + titleAdditional;
+			}
 		}
 	}
 }
