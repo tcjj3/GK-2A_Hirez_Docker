@@ -42,11 +42,73 @@ if (showDesc_String == null || showDesc_String == "") {
 </script>
 
 <script type="text/javascript">
+function full(ele) {
+	if (ele.requestFullscreen) {
+		ele.requestFullscreen();
+	} else if (ele.mozRequestFullScreen) {
+		ele.mozRequestFullScreen();
+	} else if (ele.webkitRequestFullscreen) {
+		ele.webkitRequestFullscreen();
+	} else if (ele.msRequestFullscreen) {
+		ele.msRequestFullscreen();
+	}
+}
+
+function exitFullscreen() {
+	if(document.exitFullScreen) {
+		document.exitFullScreen();
+	} else if(document.mozCancelFullScreen) {
+		document.mozCancelFullScreen();
+	} else if(document.webkitExitFullscreen) {
+		document.webkitExitFullscreen();
+	} else if(document.msExitFullscreen) {
+		document.msExitFullscreen();
+	}
+}
+
+function getFullscreenElement() {
+	return (
+		document.fullscreenElement ||
+		document.mozFullScreenElement ||
+		document.msFullScreenElement ||
+		document.webkitFullscreenElement || null
+	);
+}
+
+function isFullScreen() {
+	return !! (
+		document.fullscreen ||
+		document.mozFullScreen ||
+		document.webkitIsFullScreen ||
+		document.webkitFullScreen ||
+		document.msFullScreen
+	);
+}
+
+function isFullscreenEnabled() {
+	return (
+		document.fullscreenEnabled ||
+		document.mozFullScreenEnabled ||
+		document.webkitFullscreenEnabled ||
+		document.msFullscreenEnabled
+	);
+}
+</script>
+
+<script type="text/javascript">
 var titleAdditional = "";
 </script>
 
 <script type="text/javascript">
 var paused = false;
+
+document.oncontextmenu = function(evt) {
+	evt.preventDefault();
+};
+
+document.onselectstart = function(evt) {
+	evt.preventDefault();
+};
 
 function showImage() {
 	var o = document.getElementById("ScriptSpan"); //document.body;
@@ -62,8 +124,35 @@ function showImage() {
 	}
 }
 
+function execFullScreen() {
+	if (!isFullScreen()) {
+		var ele = document.getElementById("ImageDiv");
+		if (ele == null) ele = document.body;
+		if (ele != null && isFullscreenEnabled()) full(ele);
+	} else {
+		exitFullscreen();
+	}
+}
+
 function startToShowImage() {
 	document.onclick = function() {imageOnclick();};
+	
+	document.ondblclick = function() {execFullScreen();};
+	
+	document. onkeypress = function(e) {
+		if (e.keyCode == 13) {	// [Enter]
+			e.preventDefault();
+			execFullScreen();
+		} else if (e.keyCode == 27) {	// [Escape]
+			if (isFullScreen()) {
+				exitFullscreen();
+			}
+		} else if (e.keyCode == 32) {	// [Space]
+			e.preventDefault();
+			imageOnclick();
+		}
+	};
+	
 	
 	var filenameSpan = document.getElementById("filenameSpan");
 	var filenameLineBr = document.getElementById("filenameLine");
@@ -96,11 +185,19 @@ function Callback_Image(url) {
 	
 	var w = document.documentElement.clientWidth;
 	if (w <= 0) w = document.body.clientWidth;
-	if (w > 10) w -= 10;
+	if (showDesc) {
+		if (w > 21) w -= 21;
+	} else {
+		if (w > 16) w -= 16;
+	}
 	
 	var h = document.documentElement.clientHeight;
 	if (h <= 0) h = document.body.clientHeight;
-	if (h > 10) h -= 10;
+	if (showDesc) {
+		if (h > 21) h -= 21;
+	} else {
+		if (h > 16) h -= 16;
+	}
 	
 	var imgdiv = document.getElementById("ImageDiv");
 	imgdiv.height = h + "px";
@@ -186,11 +283,19 @@ function setImage() {
 	
 	var w = document.documentElement.clientWidth;
 	if (w <= 0) w = document.body.clientWidth;
-	if (w > 10) w -= 10;
+	if (showDesc) {
+		if (w > 21) w -= 21;
+	} else {
+		if (w > 16) w -= 16;
+	}
 	
 	var h = document.documentElement.clientHeight;
 	if (h <= 0) h = document.body.clientHeight;
-	if (h > 10) h -= 10;
+	if (showDesc) {
+		if (h > 21) h -= 21;
+	} else {
+		if (h > 16) h -= 16;
+	}
 	
 	var imgdiv = document.getElementById("ImageDiv");
 	imgdiv.height = h + "px";
@@ -247,10 +352,10 @@ titleAdditional = "TITLEADDITIONALTEXTINTHEMEBYTCJJ3";
 
 <span id="ScriptSpan"></span>
 
-<div id="ImageDiv" style="text-align: center; vertical-align: middle; ">
-<span id="playSpan" style="border-style: solid; border-width: 6px 0px 6px 11px; height: 0px; width: 11px; border-color: transparent transparent transparent white; display: inline-block; transition: all .5s ease;"></span>
-<span id="pauseSpan" style="border-style: double; border-width: 0px 0px 0px 11px; height: 11px; width: 11px; display: none; "></span>
-<span id="filenameSpan"></span>
+<div id="ImageDiv" style="text-align: center; vertical-align: middle; cursor: default; ">
+<span id="playSpan" style="border-style: solid; border-width: 6px 0px 6px 11px; height: 0px; width: 11px; border-color: transparent transparent transparent white; display: inline-block; transition: all .5s ease; cursor: default; "></span>
+<span id="pauseSpan" style="border-style: double; border-width: 0px 0px 0px 11px; height: 11px; width: 11px; display: none; cursor: default; "></span>
+<span id="filenameSpan" style="cursor: default; "></span>
 <br id="filenameLine" />
 <img id="image" src="" />
 </div>
