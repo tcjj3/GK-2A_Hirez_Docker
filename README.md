@@ -141,6 +141,8 @@ Run GK-2A_Hirez_Docker.
 
 **If you want to get the latest images (such as "`LatestFullDisk.jpg`", "`LatestFullDisk.jpg`" and "`LatestMerged.gif`") automatic, just set `SHOW_LATESTIMAGES` environment variable to "`true`", and if you want to click a link to jump to the images directly, just set `CREATE_LATESTIMAGES_LINKS` environment variable to "`true`".**
 <br>
+**The "`LATESTFULLDISK_CALLBACK`", "`LATESTFULLDISKFC_CALLBACK`" and "`LATESTMERGED_CALLBACK`" environment variables are set for the `Callback Function Names` to the "`LatestFullDisk.json`", "`LatestFullDisk-fc.json`" and "`LatestMerged.json`". If these environment variables are `Empty Values` or `Not Setted`, then these files are just `JSON` but not `JSONP`.**
+<br>
 **For example:**
 ```
 [tcjj3@debian]$ sudo docker volume create xrit-rx
@@ -162,6 +164,9 @@ Run GK-2A_Hirez_Docker.
  -e CREATE_FILEBROWSER_LINK=true \
  -e SHOW_LATESTIMAGES=true \
  -e CREATE_LATESTIMAGES_LINKS=true \
+ -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
+ -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
+ -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -201,6 +206,9 @@ Run GK-2A_Hirez_Docker.
  -e CREATE_FILEBROWSER_LINK=true \
  -e SHOW_LATESTIMAGES=true \
  -e CREATE_LATESTIMAGES_LINKS=true \
+ -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
+ -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
+ -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -242,6 +250,9 @@ Run GK-2A_Hirez_Docker.
  -e CREATE_FILEBROWSER_LINK=true \
  -e SHOW_LATESTIMAGES=true \
  -e CREATE_LATESTIMAGES_LINKS=true \
+ -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
+ -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
+ -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -278,6 +289,9 @@ Run GK-2A_Hirez_Docker.
  -e CREATE_FILEBROWSER_LINK=true \
  -e SHOW_LATESTIMAGES=true \
  -e CREATE_LATESTIMAGES_LINKS=true \
+ -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
+ -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
+ -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
  -p 5005:5005 \
  -p 8888:8888 \
  -v xrit-rx_config:/opt/xrit-rx_config \
