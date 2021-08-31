@@ -31,6 +31,14 @@ if (autoUpdate_String == null || autoUpdate_String == "") {
 } else if (autoUpdate_String.toLowerCase() == "false" || autoUpdate_String.toLowerCase() == "0") {
 	autoUpdate = false;
 }
+
+showDesc = true;
+showDesc_String = getQueryString("showdesc");
+if (showDesc_String == null || showDesc_String == "") {
+	showDesc = true;
+} else if (showDesc_String.toLowerCase() == "false" || showDesc_String.toLowerCase() == "0") {
+	showDesc = false;
+}
 </script>
 
 <script type="text/javascript">
@@ -55,6 +63,23 @@ function showImage() {
 }
 
 function startToShowImage() {
+	document.onclick = function() {imageOnclick();};
+	
+	var filenameSpan = document.getElementById("filenameSpan");
+	var filenameLineBr = document.getElementById("filenameLine");
+	if (filenameSpan != null) {
+		if (!showDesc) {
+			filenameSpan.style.display = "none";
+			playSpan.style.display = "none";
+			pauseSpan.style.display = "none";
+			filenameLineBr.style.display = "none";
+		} else {
+			filenameSpan.style.display = "";
+			playSpan.style.display = "inline-block";
+			pauseSpan.style.display = "none";
+			filenameLineBr.style.display = "";
+		}
+	}
 	setImage();
 	if (!autoUpdate) {
 		paused = true;
@@ -100,9 +125,9 @@ function Callback_Image(url) {
 		//img.style.position = "absolute";
 		img.style.zIndex = -1;
 		img.style.verticalAlign = "middle";
-		//img.onload = imageOnload;
-		//img.onerror = imageError;
-		img.onclick = imageOnclick;
+		////img.onload = function() {imageOnload();};
+		////img.onerror = function() {imageError();};
+		//img.onclick = function() {imageOnclick();};
 		
 		img.src = url;
 		
@@ -132,11 +157,29 @@ function setImage() {
 	
 	var playSpan = document.getElementById("playSpan");
 	var pauseSpan = document.getElementById("pauseSpan");
+	var filenameSpan = document.getElementById("filenameSpan");
+	var filenameLineBr = document.getElementById("filenameLine");
 	if (paused) {
 		playSpan.style.display = "none";
-		pauseSpan.style.display = "inline-block";
+		if (showDesc) {
+			pauseSpan.style.display = "inline-block";
+			filenameSpan.style.display = "";
+			filenameLineBr.style.display = "";
+		} else {
+			pauseSpan.style.display = "none";
+			filenameSpan.style.display = "none";
+			filenameLineBr.style.display = "none";
+		}
 	} else {
-		playSpan.style.display = "inline-block";
+		if (showDesc) {
+			playSpan.style.display = "inline-block";
+			filenameSpan.style.display = "";
+			filenameLineBr.style.display = "";
+		} else {
+			playSpan.style.display = "none";
+			filenameSpan.style.display = "none";
+			filenameLineBr.style.display = "none";
+		}
 		pauseSpan.style.display = "none";
 	}
 	
@@ -170,9 +213,9 @@ function setImage() {
 	//img.style.position = "absolute";
 	img.style.zIndex = -1;
 	img.style.verticalAlign = "middle";
-	//img.onload = imageOnload;
-	//img.onerror = imageError;
-	img.onclick = imageOnclick;
+	////img.onload = function() {imageOnload();};
+	////img.onerror = function() {imageError();};
+	//img.onclick = function() {imageOnclick();};
 	
 	self.setTimeout("setImage()", 1);
 }
@@ -208,7 +251,7 @@ titleAdditional = "TITLEADDITIONALTEXTINTHEMEBYTCJJ3";
 <span id="playSpan" style="border-style: solid; border-width: 6px 0px 6px 11px; height: 0px; width: 11px; border-color: transparent transparent transparent white; display: inline-block; transition: all .5s ease;"></span>
 <span id="pauseSpan" style="border-style: double; border-width: 0px 0px 0px 11px; height: 11px; width: 11px; display: none; "></span>
 <span id="filenameSpan"></span>
-<br />
+<br id="filenameLine" />
 <img id="image" src="" />
 </div>
 
