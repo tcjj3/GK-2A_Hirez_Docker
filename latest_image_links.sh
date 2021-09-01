@@ -401,7 +401,7 @@ if [ "${VritualFilePath}" != "${FullFileVritualPath}" ]; then
 echo "${FullFileVritualPath}" > "${LatestImagesDir}/LatestImage.txt"
 
 json_contents="{\"image\": \"${FullFileVritualPath}\"}"
-echo "Callback_LatestImage(${json_contents})" > "${LatestImagesDir}/LatestImage.js"
+echo "Callback_Latest_Image(${json_contents})" > "${LatestImagesDir}/LatestImage.js"
 [ -f "/tmp/latestimagecallback" ] && LatestImage_CALLBACK=`cat /tmp/latestimagecallback | head -n 1`
 if [ ! -z "${LatestImage_CALLBACK}" ]; then
 json_contents="${LatestImage_CALLBACK}(${json_contents})"

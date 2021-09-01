@@ -370,6 +370,10 @@ function Callback_LatestFullDisk_fc(json) {
 	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
 }
 
+function Callback_Latest_Image(json) {
+	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
+}
+
 function Callback_LatestMerged(json) {
 	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
 }
