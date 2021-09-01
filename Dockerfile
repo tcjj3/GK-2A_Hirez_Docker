@@ -121,7 +121,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	root /usr/local/bin/xrit-rx/src/LatestImages;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
-  && echo "	index index.html index.htm LatestFullDisk-fc.jpg LatestFullDisk.jpg LatestMerged.gif;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
+  && echo "	index index.html index.htm LatestFullDisk-fc.htm LatestFullDisk.htm LatestImage.htm LatestMerged.htm LatestFullDisk-fc.jpg LatestFullDisk.jpg LatestImage.jpg LatestMerged.gif;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	server_name _;" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \
   && echo "	" >> /etc/nginx/sites-available/dashboard_staticfiles || echo "continue..." \

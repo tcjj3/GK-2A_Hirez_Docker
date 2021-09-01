@@ -44,6 +44,8 @@ FullDisk_Date=`ls ${ImagesPath}/ | sed -n '/^[0-9][0-9]*$/p' | sort -ru | head -
 
 
 
+
+
 FullDisk_Coloured_Date=`ls ${ImagesPath}/COLOURED/ | sed -n '/^[0-9][0-9]*$/p' | sort -ru | head -n 1`
 [ ! -z "${FullDisk_Coloured_Date}" ] && FullDisk_Coloured_Filename=`ls ${ImagesPath}/COLOURED/${FullDisk_Coloured_Date}/ | awk -F "_IR" '{print $2}' | sort -ru | head -n 1`
 [ ! -z "${FullDisk_Coloured_Filename}" ] && FullDisk_Coloured_FullFilename=`ls ${ImagesPath}/COLOURED/${FullDisk_Coloured_Date}/ | grep "${FullDisk_Coloured_Filename}$" | head -n 1`
@@ -53,8 +55,40 @@ FullDisk_Coloured_Date=`ls ${ImagesPath}/COLOURED/ | sed -n '/^[0-9][0-9]*$/p' |
 
 
 
+
+
 MergedVritualFilePath=`ls ${ImagesPath}/COLOURED/ | sort -ru | while read LINE; do Filename=$(ls ${ImagesPath}/COLOURED/$LINE/Merged/ | sort -ru | head -n 1); if [ ! -z "${Filename}" ]; then echo "/COLOURED/${LINE}/Merged/${Filename}"; break; fi; done | head -n 1`
 [ ! -z "${MergedVritualFilePath}" ] && MergedFilePath="${ImagesPath}${MergedVritualFilePath}"
+
+
+
+
+
+
+Images_Date=`ls ${ImagesPath}/ | sed -n '/^[0-9][0-9]*$/p' | sort -ru | head -n 1`
+[ ! -z "${Images_Date}" ] && LatestDirectory=`ls -t ${ImagesPath}/${Images_Date}/ | head -n 1`
+[ ! -z "${LatestDirectory}" ] && LatestFilename=`ls -t ${ImagesPath}/${Images_Date}/${LatestDirectory}/ | head -n 1`
+
+if [ ! -z "${LatestFilename}" ]; then
+FullFileVritualPath="/${Images_Date}/${LatestDirectory}/${LatestFilename}"
+FullFilePath="${ImagesPath}/${FullFileVritualPath}"
+
+LatestFilename_fc="${LatestFilename}"
+FullFilePath_fc=""
+tmp=`echo "${LatestDirectory}" | grep "FD"`
+if [ ! -z "${tmp}" ]; then
+LatestFilename_fc=`echo "${LatestFilename}" | sed "s#.jpg#-fc.jpg#gi"`
+FullFileVritualPath_fc="/COLOURED/${Images_Date}/${LatestFilename_fc}"
+FullFilePath_fc="${ImagesPath}/${FullFileVritualPath_fc}"
+if [ -f "${FullFilePath_fc}" ]; then
+LatestFilename="${LatestFilename_fc}"
+FullFileVritualPath="${FullFileVritualPath_fc}"
+FullFilePath="${FullFilePath_fc}"
+fi
+fi
+fi
+
+
 
 
 
@@ -305,6 +339,91 @@ rm -f "${LatestImagesDir}/LatestMerged.txt" > /dev/null 2>&1
 fi
 if [ -f "${LatestImagesDir}/LatestMerged.json" ]; then
 rm -f "${LatestImagesDir}/LatestMerged.json" > /dev/null 2>&1
+fi
+fi
+
+
+
+
+
+
+
+
+#  Latest Image
+
+if [ ! -z "${LatestFilename}" ]; then
+if [ -f "/tmp/createlatestimageslinks" ]; then
+if [ ! -f "${LatestImagesLinksDir}/LatestImage.jpg" ]; then
+#touch ${LatestImagesLinksDir}/LatestImage.jpg > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestImage.jpg
+fi
+if [ ! -f "${LatestImagesLinksDir}/LatestImage.txt" ]; then
+#touch ${LatestImagesLinksDir}/LatestImage.txt > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestImage.txt
+fi
+if [ ! -f "${LatestImagesLinksDir}/LatestImage.json" ]; then
+#touch ${LatestImagesLinksDir}/LatestImage.json > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestImage.json
+fi
+if [ ! -f "${LatestImagesLinksDir}/LatestImage.js" ]; then
+#touch ${LatestImagesLinksDir}/LatestImage.js > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestImage.js
+fi
+if [ ! -f "${LatestImagesLinksDir}/LatestImage.htm" ]; then
+#touch ${LatestImagesLinksDir}/LatestImage.htm > /dev/null 2>&1
+echo "This is just a link file and would delete anytime, so please do not save anything in it." > ${LatestImagesLinksDir}/LatestImage.htm
+fi
+else
+if [ -f "${LatestImagesLinksDir}/LatestImage.jpg" ]; then
+rm -f "${LatestImagesLinksDir}/LatestImage.jpg" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestImage.txt" ]; then
+rm -f "${LatestImagesLinksDir}/LatestImage.txt" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestImage.json" ]; then
+rm -f "${LatestImagesLinksDir}/LatestImage.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestImage.js" ]; then
+rm -f "${LatestImagesLinksDir}/LatestImage.js" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesLinksDir}/LatestImage.htm" ]; then
+rm -f "${LatestImagesLinksDir}/LatestImage.htm" > /dev/null 2>&1
+fi
+fi
+
+LinkPath=`ls -l "${LatestImagesDir}/LatestImage.jpg" | grep "^l" | awk '{print $NF}'`
+if [ "${LinkPath}" != "${FullFilePath}" ]; then
+[ -L "${LatestImagesDir}/LatestImage.jpg" ] && rm -f "${LatestImagesDir}/LatestImage.jpg" > /dev/null 2>&1
+ln -s "${FullFilePath}" "${LatestImagesDir}/LatestImage.jpg" > /dev/null 2>&1
+fi
+VritualFilePath=`cat "${LatestImagesDir}/LatestImage.txt" | head -n 1`
+if [ "${VritualFilePath}" != "${FullFileVritualPath}" ]; then
+echo "${FullFileVritualPath}" > "${LatestImagesDir}/LatestImage.txt"
+
+json_contents="{\"image\": \"${FullFileVritualPath}\"}"
+echo "Callback_LatestImage(${json_contents})" > "${LatestImagesDir}/LatestImage.js"
+[ -f "/tmp/latestimagecallback" ] && LatestImage_CALLBACK=`cat /tmp/latestimagecallback | head -n 1`
+if [ ! -z "${LatestImage_CALLBACK}" ]; then
+json_contents="${LatestImage_CALLBACK}(${json_contents})"
+fi
+echo "${json_contents}" > "${LatestImagesDir}/LatestImage.json"
+fi
+
+if [ ! -L "${LatestImagesDir}/LatestImage.htm" ]; then
+ln -s "/opt/LatestImage.new.htm" "${LatestImagesDir}/LatestImage.htm" > /dev/null 2>&1
+fi
+else
+if [ -L "${LatestImagesDir}/LatestImage.jpg" ]; then
+rm -f "${LatestImagesDir}/LatestImage.jpg" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesDir}/LatestImage.txt" ]; then
+rm -f "${LatestImagesDir}/LatestImage.txt" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesDir}/LatestImage.json" ]; then
+rm -f "${LatestImagesDir}/LatestImage.json" > /dev/null 2>&1
+fi
+if [ -f "${LatestImagesDir}/LatestImage.js" ]; then
+rm -f "${LatestImagesDir}/LatestImage.js" > /dev/null 2>&1
 fi
 fi
 
