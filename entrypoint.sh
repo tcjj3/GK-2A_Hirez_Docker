@@ -773,6 +773,11 @@ cat << EOF >> /etc/caddy/Caddyfile
     proxy /LatestMerged.js ${Latest_Images_ServerPath}
     proxy /LatestMerged.json ${Latest_Images_ServerPath}
     proxy /LatestMerged.htm ${Latest_Images_ServerPath}
+    proxy /LatestImage.jpg ${Latest_Images_ServerPath}
+    proxy /LatestImage.txt ${Latest_Images_ServerPath}
+    proxy /LatestImage.js ${Latest_Images_ServerPath}
+    proxy /LatestImage.json ${Latest_Images_ServerPath}
+    proxy /LatestImage.htm ${Latest_Images_ServerPath}
 EOF
 
 /opt/latest_image_links.sh > /dev/null 2>&1 &
