@@ -139,9 +139,9 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
-**If you want to get the latest images (such as "`LatestFullDisk.jpg`", "`LatestFullDisk.jpg`" and "`LatestMerged.gif`") automatic, just set `SHOW_LATESTIMAGES` environment variable to "`true`", and if you want to click a link to jump to the images directly, just set `CREATE_LATESTIMAGES_LINKS` environment variable to "`true`".**
+**If you want to get the latest images (such as "`LatestFullDisk.jpg`", "`LatestFullDisk-fc.jpg`", "`LatestImage.jpg`" and "`LatestMerged.gif`") automatic, just set `SHOW_LATESTIMAGES` environment variable to "`true`", and if you want to click a link to jump to the images directly, just set `CREATE_LATESTIMAGES_LINKS` environment variable to "`true`".**
 <br>
-**The "`LATESTFULLDISK_CALLBACK`", "`LATESTFULLDISKFC_CALLBACK`" and "`LATESTMERGED_CALLBACK`" environment variables are set for the `Callback Function Names` to the "`LatestFullDisk.json`", "`LatestFullDisk-fc.json`" and "`LatestMerged.json`". If these environment variables are `Empty Values` or `Not Setted`, then these files are just `JSON` but not `JSONP`.**
+**The "`LATESTFULLDISK_CALLBACK`", "`LATESTFULLDISKFC_CALLBACK`", "`LATESTIMAGE_CALLBACK`" and "`LATESTMERGED_CALLBACK`" environment variables are set for the `Callback Function Names` to the "`LatestFullDisk.json`", "`LatestFullDisk-fc.json`", "`LatestImage.json`" and "`LatestMerged.json`". If these environment variables are `Empty Values` or `Not Setted`, then these files are just `JSON` but not `JSONP`.**
 <br>
 **For example:**
 ```
@@ -167,6 +167,7 @@ Run GK-2A_Hirez_Docker.
  -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
  -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
  -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
+ -e LATESTIMAGE_CALLBACK="Callback_LatestImage" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -209,6 +210,7 @@ Run GK-2A_Hirez_Docker.
  -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
  -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
  -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
+ -e LATESTIMAGE_CALLBACK="Callback_LatestImage" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -253,6 +255,7 @@ Run GK-2A_Hirez_Docker.
  -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
  -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
  -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
+ -e LATESTIMAGE_CALLBACK="Callback_LatestImage" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -292,6 +295,7 @@ Run GK-2A_Hirez_Docker.
  -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
  -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
  -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
+ -e LATESTIMAGE_CALLBACK="Callback_LatestImage" \
  -p 5005:5005 \
  -p 8888:8888 \
  -v xrit-rx_config:/opt/xrit-rx_config \
