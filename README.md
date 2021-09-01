@@ -167,7 +167,7 @@ Run GK-2A_Hirez_Docker.
  -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
  -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
  -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
- -e LATESTIMAGE_CALLBACK="Callback_LatestImage" \
+ -e LATESTIMAGE_CALLBACK="Callback_Latest_Image" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -210,7 +210,7 @@ Run GK-2A_Hirez_Docker.
  -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
  -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
  -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
- -e LATESTIMAGE_CALLBACK="Callback_LatestImage" \
+ -e LATESTIMAGE_CALLBACK="Callback_Latest_Image" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -255,7 +255,7 @@ Run GK-2A_Hirez_Docker.
  -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
  -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
  -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
- -e LATESTIMAGE_CALLBACK="Callback_LatestImage" \
+ -e LATESTIMAGE_CALLBACK="Callback_Latest_Image" \
  -p 1692:1692 \
  -p 5001:5001 \
  -p 5002:5002 \
@@ -295,7 +295,7 @@ Run GK-2A_Hirez_Docker.
  -e LATESTFULLDISK_CALLBACK="Callback_LatestFullDisk" \
  -e LATESTFULLDISKFC_CALLBACK="Callback_LatestFullDisk_fc" \
  -e LATESTMERGED_CALLBACK="Callback_LatestMerged" \
- -e LATESTIMAGE_CALLBACK="Callback_LatestImage" \
+ -e LATESTIMAGE_CALLBACK="Callback_Latest_Image" \
  -p 5005:5005 \
  -p 8888:8888 \
  -v xrit-rx_config:/opt/xrit-rx_config \
