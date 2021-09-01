@@ -181,7 +181,8 @@ function startToShowImage() {
 			filenameLineBr.style.display = "none";
 		} else {
 			filenameSpan.style.display = "";
-			playSpan.style.display = "inline-block";
+			if (showStatus) {playSpan.style.display = "inline-block";}
+			else {playSpan.style.display = "none";}
 			pauseSpan.style.display = "none";
 			filenameLineBr.style.display = "";
 		}
@@ -277,7 +278,8 @@ function setImage() {
 	if (paused) {
 		playSpan.style.display = "none";
 		if (showDesc) {
-			pauseSpan.style.display = "inline-block";
+			if (showStatus) {pauseSpan.style.display = "inline-block";}
+			else {pauseSpan.style.display = "none";}
 			filenameSpan.style.display = "";
 			filenameLineBr.style.display = "";
 		} else {
@@ -287,7 +289,8 @@ function setImage() {
 		}
 	} else {
 		if (showDesc) {
-			playSpan.style.display = "inline-block";
+			if (showStatus) {playSpan.style.display = "inline-block";}
+			else {playSpan.style.display = "none";}
 			filenameSpan.style.display = "";
 			filenameLineBr.style.display = "";
 		} else {
