@@ -97,6 +97,7 @@ function isFullscreenEnabled() {
 
 <script type="text/javascript">
 var titleAdditional = "";
+var url_old = "";
 </script>
 
 <script type="text/javascript">
@@ -213,7 +214,8 @@ function Callback_Image(url) {
 	}
 	
 	var img = document.getElementById("image");
-	if (img.src != url) {
+	if (url != url_old) {
+		url_old = url;
 		
 		img.width = w;
 		img.height = h;
