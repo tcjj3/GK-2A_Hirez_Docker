@@ -160,9 +160,9 @@ if [ $NOCOLOUR = "FALSE" ]; then
 fi
 
 if [ $NOCOLOUR != "false" ] && [ ! -z "$NOCOLOUR" ]; then
-	rm -rf /tmp/nocolour > /dev/null 2>&1 &
-else
 	touch /tmp/nocolour > /dev/null 2>&1 &
+else
+	rm -rf /tmp/nocolour > /dev/null 2>&1 &
 fi
 
 
@@ -193,9 +193,9 @@ if [ $NOCONVERT = "FALSE" ]; then
 fi
 
 if [ $NOCONVERT != "false" ] && [ ! -z "$NOCONVERT" ]; then
-	rm -rf /tmp/noconvert > /dev/null 2>&1 &
-else
 	touch /tmp/noconvert > /dev/null 2>&1 &
+else
+	rm -rf /tmp/noconvert > /dev/null 2>&1 &
 fi
 
 
