@@ -139,6 +139,41 @@ Run GK-2A_Hirez_Docker.
  tcjj3/gk-2a_hirez_docker:latest
 ```
 
+**If you want to delay some script operations when receiving (for some slow CPUs, because the signal would unlock when other programs are heavy using the CPU), just set `DELAYWHENRECEIVING` environment variable to "`true`".**
+<br>
+**For example:**
+```
+[tcjj3@debian]$ sudo docker volume create xrit-rx
+[tcjj3@debian]$ sudo docker volume create xrit-rx_config
+[tcjj3@debian]$ sudo docker run -d -i -t \
+ --restart always \
+ --name=goesrecv \
+ --device /dev/bus/usb \
+ -e DEVICE=airspy \
+ -e GAIN=50 \
+ -e FREQ=1692140000 \
+ -e BIAS_TEE=true \
+ -e DELAYWHENRECEIVING=true \
+ -e HIREZ=underlay_hirez \
+ -e PM=pristinemask \
+ -e CONVERT_TIMES=2200,0000 \
+ -e PROXY_DASHBOARD=true \
+ -e CREATE_DASHBOARD_LINK=true \
+ -e PROXY_FILEBROWSER=true \
+ -e CREATE_FILEBROWSER_LINK=true \
+ -p 1692:1692 \
+ -p 5001:5001 \
+ -p 5002:5002 \
+ -p 5004:5004 \
+ -p 5005:5005 \
+ -p 6001:6001 \
+ -p 6002:6002 \
+ -p 8888:8888 \
+ -v xrit-rx_config:/opt/xrit-rx_config \
+ -v xrit-rx:/usr/local/bin/xrit-rx/src/received/LRIT \
+ tcjj3/gk-2a_hirez_docker:latest
+```
+
 **If you want to get the latest images (such as "`LatestFullDisk.jpg`", "`LatestFullDisk-fc.jpg`", "`LatestImage.jpg`" and "`LatestMerged.gif`") automatic, just set `SHOW_LATESTIMAGES` environment variable to "`true`", and if you want to click a link to jump to the images directly, just set `CREATE_LATESTIMAGES_LINKS` environment variable to "`true`".**
 <br>
 **The "`LATESTFULLDISK_CALLBACK`", "`LATESTFULLDISKFC_CALLBACK`", "`LATESTIMAGE_CALLBACK`" and "`LATESTMERGED_CALLBACK`" environment variables are set for the `Callback Function Names` to the "`LatestFullDisk.json`", "`LatestFullDisk-fc.json`", "`LatestImage.json`" and "`LatestMerged.json`". If these environment variables are `Empty Values` or `Not Setted`, then these files are just `JSON` but not `JSONP`.**
@@ -155,6 +190,7 @@ Run GK-2A_Hirez_Docker.
  -e GAIN=50 \
  -e FREQ=1692140000 \
  -e BIAS_TEE=true \
+ -e DELAYWHENRECEIVING=true \
  -e HIREZ=underlay_hirez \
  -e PM=pristinemask \
  -e CONVERT_TIMES=2200,0000 \
@@ -198,6 +234,7 @@ Run GK-2A_Hirez_Docker.
  -e GAIN=50 \
  -e FREQ=1692140000 \
  -e BIAS_TEE=true \
+ -e DELAYWHENRECEIVING=true \
  -e HIREZ=underlay_hirez \
  -e PM=pristinemask \
  -e CONVERT_TIMES=2200,0000 \
@@ -241,6 +278,7 @@ Run GK-2A_Hirez_Docker.
  -e GAIN=50 \
  -e FREQ=1692140000 \
  -e BIAS_TEE=true \
+ -e DELAYWHENRECEIVING=true \
  -e HIREZ=underlay_hirez \
  -e PM=pristinemask \
  -e NOCOLOUR=true \
@@ -281,6 +319,7 @@ Run GK-2A_Hirez_Docker.
  --restart always \
  --name=goesrecv \
  --device /dev/bus/usb \
+ -e DELAYWHENRECEIVING=true \
  -e HIREZ=underlay_hirez \
  -e PM=pristinemask \
  -e NORECEIVE=true \
