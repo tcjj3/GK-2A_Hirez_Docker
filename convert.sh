@@ -78,6 +78,8 @@ echo "$result"
 
 
 # Receive Lock
+if [ -f /tmp/delaywhenreceiving ]; then
+
 Dashboard_Server="127.0.0.1:1692"
 tmp_Dashboard_Server=""
 if [ -f /tmp/dashboardserver ]; then
@@ -99,6 +101,8 @@ sleep 1
 vcid_check=`curl -s http://${tmp_Dashboard_Server}/api/current/vcid | grep "\"vcid\": 63"`
 done
 fi
+fi
+
 fi
 
 

@@ -201,6 +201,39 @@ fi
 
 
 
+if [ $DELAYWHENRECEIVING = "1" ]; then
+	DELAYWHENRECEIVING="true"
+fi
+
+if [ $DELAYWHENRECEIVING = "0" ]; then
+	DELAYWHENRECEIVING="false"
+fi
+
+if [ $DELAYWHENRECEIVING = "True" ]; then
+	DELAYWHENRECEIVING="true"
+fi
+
+if [ $DELAYWHENRECEIVING = "False" ]; then
+	DELAYWHENRECEIVING="false"
+fi
+
+if [ $DELAYWHENRECEIVING = "TRUE" ]; then
+	DELAYWHENRECEIVING="true"
+fi
+
+if [ $DELAYWHENRECEIVING = "FALSE" ]; then
+	DELAYWHENRECEIVING="false"
+fi
+
+if [ $DELAYWHENRECEIVING != "false" ] && [ ! -z "$DELAYWHENRECEIVING" ]; then
+	touch /tmp/delaywhenreceiving > /dev/null 2>&1 &
+else
+	rm -rf /tmp/delaywhenreceiving > /dev/null 2>&1 &
+fi
+
+
+
+
 if [ ! -z "$DASHBOARDSERVER" ]; then
 	echo "$DASHBOARDSERVER" > /tmp/dashboardserver
 else
