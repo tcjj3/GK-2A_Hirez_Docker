@@ -3,7 +3,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>LatestImageTITLEADDITIONALTEXTINTHEMEBYTCJJ3</title>
+<title>LatestImage - GK-2A Satellite Receive Server by tcjj3 (BG7XUD)</title>
 
 <script type="text/javascript">
 function getQueryString(name) {
@@ -16,7 +16,7 @@ function getQueryString(name) {
 
 
 <script type="text/javascript">
-autoStart = true;
+autoStart = false;
 autoStart_String = getQueryString("autostart");
 if (autoStart_String == null || autoStart_String == "") {
 	autoStart = true;
@@ -24,7 +24,7 @@ if (autoStart_String == null || autoStart_String == "") {
 	autoStart = false;
 }
 
-autoUpdate = true;
+autoUpdate = false;
 autoUpdate_String = getQueryString("autoupdate");
 if (autoUpdate_String == null || autoUpdate_String == "") {
 	autoUpdate = true;
@@ -218,11 +218,11 @@ function Callback_Image(url) {
 	}
 	
 	var imgdiv = document.getElementById("ImageDiv");
-	imgdiv.height = h + "px";
+	imgdiv.height = h;
 	imgdiv.style.height = h + "px";
 	
 	
-	if (h >= w) {
+	if (h > w && w > 0) {
 		h = w;
 		imgdiv.style.display = "table-cell";
 	} else {
@@ -236,8 +236,8 @@ function Callback_Image(url) {
 		
 		img.width = w;
 		img.height = h;
-		img.style.width = w;
-		img.style.height = h;
+		img.style.width = w + "px";
+		img.style.height = h + "px";
 		//img.style.position = "absolute";
 		img.style.zIndex = -1;
 		img.style.verticalAlign = "middle";
@@ -319,11 +319,11 @@ function setImage() {
 	}
 	
 	var imgdiv = document.getElementById("ImageDiv");
-	imgdiv.height = h + "px";
+	imgdiv.height = h;
 	imgdiv.style.height = h + "px";
 	
 	
-	if (h >= w) {
+	if (h > w && w > 0) {
 		h = w;
 		imgdiv.style.display = "table-cell";
 	} else {
@@ -334,8 +334,8 @@ function setImage() {
 	var img = document.getElementById("image");
 	img.width = w;
 	img.height = h;
-	img.style.width = w;
-	img.style.height = h;
+	img.style.width = w + "px";
+	img.style.height = h + "px";
 	//img.style.position = "absolute";
 	img.style.zIndex = -1;
 	img.style.verticalAlign = "middle";
@@ -370,17 +370,13 @@ function Callback_LatestFullDisk_fc(json) {
 	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
 }
 
-function Callback_Latest_Image(json) {
-	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
-}
-
 function Callback_LatestMerged(json) {
 	if (json != null && json.image != null && json.image != "") Callback_Image(json.image);
 }
 </script>
 
 <script type="text/javascript">
-titleAdditional = "TITLEADDITIONALTEXTINTHEMEBYTCJJ3";
+titleAdditional = " - GK-2A Satellite Receive Server by tcjj3 (BG7XUD)";
 </script>
 
 </head>
