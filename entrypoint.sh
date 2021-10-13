@@ -95,7 +95,7 @@ if [ $NORECEIVE = "FALSE" ]; then
 	NORECEIVE="false"
 fi
 
-if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE = "false" ]; then
 if [ -z "$DEVICE" ]; then
 	echo >&2 'error: missing required DEVICE environment variable'
 	echo >&2 '  Did you forget to -e DEVICE=... ?'
@@ -126,7 +126,7 @@ fi
 
 
 
-if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE = "false" ]; then
 	rm -rf /tmp/noreceive > /dev/null 2>&1 &
 else
 	touch /tmp/noreceive > /dev/null 2>&1 &
@@ -323,7 +323,7 @@ fi
 
 
 
-if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE = "false" ]; then
 
 if [ $DEVICE = "airspy" ] ; then
 cat << EOF > /etc/goestools/goesrecv.conf
@@ -929,7 +929,7 @@ cd /opt/xrit-rx_config > /dev/null 2>&1
 
 
 
-if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE = "false" ]; then
 /usr/local/bin/goesrecv -i 1 -c /etc/goestools/goesrecv.conf > /dev/null 2>&1 &
 
 /opt/goestools_monitor_to_terminate_python3.sh > /dev/null 2>&1 &
@@ -940,7 +940,7 @@ fi
 
 cd /usr/local/bin/xrit-rx/src > /dev/null 2>&1
 
-if [ -z "$NORECEIVE" ] || [ $NORECEIVE == "false" ]; then
+if [ -z "$NORECEIVE" ] || [ $NORECEIVE = "false" ]; then
 /usr/bin/python3 xrit-rx.py > /dev/null 2>&1
 else
 /bin/bash > /dev/null 2>&1
