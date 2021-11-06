@@ -30,6 +30,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/arm
           push: true
           tags: tcjj3/gk-2a_hirez_docker:latest
       - 
