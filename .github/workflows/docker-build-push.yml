@@ -1,4 +1,4 @@
-name: docker-build-push-arm
+name: docker-build-push
 
 on:
   push:
@@ -31,14 +31,14 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/arm
+          platforms: linux/amd64,linux/arm64,linux/arm
           push: true
-          tags: tcjj3/gk-2a_hirez_docker_arm:latest
+          tags: tcjj3/gk-2a_hirez_docker:latest
       - 
         name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: tcjj3/gk-2a_hirez_docker_arm
+          repository: tcjj3/gk-2a_hirez_docker
           short-description: ${{ github.event.repository.description }}
