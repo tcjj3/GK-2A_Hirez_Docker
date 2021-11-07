@@ -33,12 +33,12 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: tcjj3/gk-2a_hirez_docker_amd64:latest
+          tags: tcjj3/gk-2a_hirez_docker:amd64
       - 
         name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: tcjj3/gk-2a_hirez_docker_amd64
+          repository: tcjj3/gk-2a_hirez_docker
           short-description: ${{ github.event.repository.description }}

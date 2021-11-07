@@ -31,7 +31,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm
+          platforms: linux/amd64
           push: true
           tags: tcjj3/gk-2a_hirez_docker:latest
       - 
