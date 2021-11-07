@@ -39,6 +39,10 @@ RUN export DIR_TMP="$(mktemp -d)" \
                                                 vim \
                                                 psmisc \
                                                 procps \
+  && mkdir -p /etc/curlssl \
+  && curl -L http://curl.haxx.se/ca/cacert.pem -o /etc/curlssl/cacert.pem \
+  && export CURL_CA_BUNDLE=/etc/curlssl/cacert.pem \
+  && pip install setuptools \
   && chmod +x /opt/*.py \
   && chmod +x /opt/*.sh \
   && mkdir -p /etc/goestools /etc/caddy \
