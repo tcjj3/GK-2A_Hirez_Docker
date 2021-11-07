@@ -152,7 +152,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
      else \
         ARCH=$(dpkg --print-architecture); \
      fi \
-  && [ "$(dpkg --print-architecture)" = "arm" ] \
+  && [ "$ARCH" = "arm" ] \
   && (curl -L -o ${DIR_TMP}/sanchez-v0.2.3-linux-arm.tar.gz https://github.com/nullpainter/sanchez/releases/download/v0.2.3/sanchez-v0.2.3-linux-arm.tar.gz \
   && tar zxf ${DIR_TMP}/sanchez-v0.2.3-linux-arm.tar.gz \
   && mv ${DIR_TMP}/sanchez-v0.2.3-linux-arm /usr/local/bin/sanchez \
