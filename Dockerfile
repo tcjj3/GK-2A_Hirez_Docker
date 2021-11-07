@@ -152,7 +152,14 @@ RUN export DIR_TMP="$(mktemp -d)" \
      else \
         ARCH=$(dpkg --print-architecture); \
      fi \
-  && mkdir -p ${DIR_TMP}/dotnet-sdk \
+  && [ "$(dpkg --print-architecture)" = "arm" ] \
+  && (curl -L -o ${DIR_TMP}/sanchez-v0.2.3-linux-arm.tar.gz https://github.com/nullpainter/sanchez/releases/download/v0.2.3/sanchez-v0.2.3-linux-arm.tar.gz \
+  && tar zxf ${DIR_TMP}/sanchez-v0.2.3-linux-arm.tar.gz \
+  && mv ${DIR_TMP}/sanchez-v0.2.3-linux-arm /usr/local/bin/sanchez \
+  && curl -L https://github.com/nullpainter/sanchez/raw/41046435a10fa3e6ce7d440fd8bfe74e0d272b7e/Sanchez/Resources/GK-2A/PristineMask.jpg -o /usr/local/bin/sanchez/Resources/GK-2A/PristineMask.jpg \
+  && curl -L https://github.com/nullpainter/sanchez/raw/41046435a10fa3e6ce7d440fd8bfe74e0d272b7e/Sanchez/Resources/GK-2A/Underlay-Hirez.jpg -o /usr/local/bin/sanchez/Resources/GK-2A/Underlay-Hirez.jpg \
+  && rm -f ${DIR_TMP}/sanchez-v0.2.3-linux-arm.tar.gz) \
+  || (mkdir -p ${DIR_TMP}/dotnet-sdk \
   && curl -L -o ${DIR_TMP}/dotnet-sdk.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/3.1.302/dotnet-sdk-3.1.302-linux-${ARCH}.tar.gz \
   && tar -zxf ${DIR_TMP}/dotnet-sdk.tar.gz -C ${DIR_TMP}/dotnet-sdk \
   && rm -rf ${DIR_TMP}/dotnet-sdk.tar.gz \
@@ -178,7 +185,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
      fi \
   && mkdir /usr/local/bin/dotnet \
   && curl -o ${DIR_TMP}/dotnet-runtime.tar.gz https://dotnetcli.azureedge.net/dotnet/Runtime/3.1.6/dotnet-runtime-3.1.6-linux-${ARCH}.tar.gz \
-  && tar -zxf ${DIR_TMP}/dotnet-runtime.tar.gz -C /usr/local/bin/dotnet \
+  && tar -zxf ${DIR_TMP}/dotnet-runtime.tar.gz -C /usr/local/bin/dotnet) \
   && chmod +x /opt/* /usr/local/bin/xrit-rx/src/xrit-rx.py \
   && echo "4,14,24,34,44,54 * * * * /opt/colour.sh &" > ${DIR_TMP}/crontab \
   && echo "57 23 * * * /opt/convert.sh &" >> ${DIR_TMP}/crontab \
