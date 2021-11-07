@@ -30,7 +30,7 @@ RUN export DIR_TMP="$(mktemp -d)" \
                                                 make \
                                                 libopencv-dev \
                                                 git \
-                                                python3 \
+                                                python3-dev \
                                                 python3-pip \
                                                 libairspy-dev \
                                                 librtlsdr-dev \
