@@ -5,7 +5,7 @@ modified by [**tcjj3**](https://github.com/tcjj3), using [**sam210723/goestools*
 
 # Quick Start
 
-Install docker-ce, example given on Debian.
+1. Install docker-ce, example given on Debian:
 
 ```
 [tcjj3@debian]$ sudo apt install -y curl
@@ -16,7 +16,10 @@ Install docker-ce, example given on Debian.
 [tcjj3@debian]$ sudo systemctl enable docker && sudo systemctl start docker
 ```
 
-Run GK-2A_Hirez_Docker.
+2. Run GK-2A_Hirez_Docker: <br>
+   Note: The image has 3 architectures: amd, arm, arm64. <br>
+         Just change the tag "`latest`" to "`arm`" for `arm` architecture, "`arm64`" for `arm64` architecture, or "`amd64`" for `amd64` architecture. <br>
+         Default tag "`latest`" is for `amd64` architecture.
 
 ```
 [tcjj3@debian]$ sudo docker volume create xrit-rx
