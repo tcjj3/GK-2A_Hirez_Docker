@@ -17,9 +17,9 @@ modified by [**tcjj3**](https://github.com/tcjj3), using [**sam210723/goestools*
 ```
 
 2. Run GK-2A_Hirez_Docker: <br>
-   Note: The image has 3 architectures: amd, arm, arm64. <br>
-         Just change the tag "`latest`" to "`arm`" for `arm` architecture, "`arm64`" for `arm64` architecture, or "`amd64`" for `amd64` architecture. <br>
-         Default tag "`latest`" is for `amd64` architecture.
+   Note: The image has 3 architectures: `amd64`, `arm`, `arm64`. <br>
+   Just change the tag "`latest`" to "`amd64`" for `amd64` architecture, "`arm`" for `arm` architecture, or "`arm64`" for `arm64` architecture. <br>
+   Default tag "`latest`" is for `amd64` architecture.
 
 ```
 [tcjj3@debian]$ sudo docker volume create xrit-rx
